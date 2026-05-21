@@ -1,0 +1,35 @@
+.movie-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  height: 100%;
+
+  img {
+    height: 360px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .movie-card-body {
+    padding: 16px;
+  }
+
+  .movie-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .movie-overview {
+    font-size: 14px;
+    color: #666666;
+  }
+
+  .movie-comment {
+    font-size: 14px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+  }
+}

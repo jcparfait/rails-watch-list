@@ -1,31 +1,36 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><%= @list.name %></h1>
-
     <div>
+      <h1><%= @list.name %></h1>
+      <p class="text-muted"><%= pluralize(@list.bookmarks.count, "movie") %> in this list</p>
+    </div>
+
+    <div class="d-flex gap-2">
       <%= link_to "Add movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
-      <%= link_to "Back to lists", lists_path, class: "btn btn-outline-secondary" %>
+      <%= link_to "Back", lists_path, class: "btn btn-outline-secondary" %>
     </div>
   </div>
 
   <% if @list.bookmarks.any? %>
     <div class="row">
       <% @list.bookmarks.each do |bookmark| %>
-        <div class="col-12 col-md-4 mb-4">
-          <div class="card h-100">
-            <%= image_tag bookmark.movie.poster_url, class: "card-img-top", alt: bookmark.movie.title %>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="movie-card">
+            <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
 
-            <div class="card-body">
-              <h2 class="h5"><%= bookmark.movie.title %></h2>
+            <div class="movie-card-body">
+              <h2 class="movie-title"><%= bookmark.movie.title %></h2>
 
-              <p><%= bookmark.movie.overview %></p>
+              <p class="movie-overview">
+                <%= bookmark.movie.overview %>
+              </p>
 
               <p>
                 <strong>Rating:</strong>
                 <%= bookmark.movie.rating %>
               </p>
 
-              <p>
+              <p class="movie-comment">
                 <strong>Comment:</strong>
                 <%= bookmark.comment %>
               </p>
@@ -40,6 +45,9 @@
       <% end %>
     </div>
   <% else %>
-    <p>No movies in this list yet.</p>
+    <div class="text-center py-5">
+      <p class="text-muted">No movies in this list yet.</p>
+      <%= link_to "Add your first movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+    </div>
   <% end %>
 </div>

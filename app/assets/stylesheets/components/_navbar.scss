@@ -1,12 +1,20 @@
-.navbar-lewagon {
-  justify-content: space-between;
+.navbar-watchlist {
   background: white;
-}
+  border-bottom: 1px solid #eeeeee;
+  padding: 16px 0;
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+  .navbar-brand {
+    font-weight: 700;
+    color: #111111;
+    text-decoration: none;
+  }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+  .nav-link {
+    color: #555555;
+    text-decoration: none;
+
+    &:hover {
+      color: #111111;
+    }
+  }
 }

@@ -1,0 +1,22 @@
+.list-card {
+  height: 180px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1f1f1f, #444444);
+  color: white;
+  display: flex;
+  align-items: end;
+  padding: 24px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  &:hover {
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+}
