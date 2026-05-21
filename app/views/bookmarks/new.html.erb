@@ -1,11 +1,28 @@
-<div class="container mt-4">
-  <h1>Add a movie to <%= @list.name %></h1>
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to lists", lists_path, class: "back-link" %>
 
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.association :movie, label_method: :title, value_method: :id, prompt: "Choose a movie" %>
-    <%= f.input :comment %>
-    <%= f.submit "Add movie", class: "btn btn-primary" %>
-  <% end %>
+    <div>
+      <p class="eyebrow">New collection</p>
+      <h1>Create a new list</h1>
+      <p class="hero-text">
+        Give your movie collection a name.
+      </p>
+    </div>
+  </section>
 
-  <%= link_to "Back to list", list_path(@list), class: "btn btn-link mt-3" %>
+  <section class="list-show-container">
+    <div class="list-form-card">
+      <%= simple_form_for @list do |f| %>
+        <%= f.input :name,
+                    label: "List name",
+                    placeholder: "Drama, Comedy, Classics..." %>
+
+        <div class="d-flex gap-2 mt-3">
+          <%= f.submit "Create list", class: "btn btn-primary" %>
+          <%= link_to "Cancel", lists_path, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
 </div>

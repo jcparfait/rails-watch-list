@@ -1,20 +1,45 @@
 .navbar-watchlist {
-  background: white;
-  border-bottom: 1px solid #eeeeee;
-  padding: 16px 0;
+  background: rgba(11, 12, 18, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
 
   .navbar-brand {
-    font-weight: 700;
-    color: #111111;
+    color: #f4f1ea;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     text-decoration: none;
+    font-size: 15px;
+
+    &:hover {
+      color: #f4f1ea;
+    }
   }
 
   .nav-link {
-    color: #555555;
+    color: #b8b2a7;
     text-decoration: none;
+    font-weight: 500;
 
     &:hover {
-      color: #111111;
+      color: #f4f1ea;
+    }
+  }
+
+  .btn-primary {
+    background: #d87d4a;
+    border-color: #d87d4a;
+    color: #111218;
+    font-weight: 700;
+
+    &:hover {
+      background: #f1a36f;
+      border-color: #f1a36f;
+      color: #111218;
     }
   }
 }

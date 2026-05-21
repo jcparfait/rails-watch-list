@@ -1,33 +1,50 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to lists", lists_path, class: "back-link" %>
+
     <div>
+      <p class="eyebrow">Movie list</p>
       <h1><%= @list.name %></h1>
-      <p class="text-muted"><%= pluralize(@list.bookmarks.count, "movie") %> in this list</p>
+      <p class="hero-text">
+        <%= pluralize(@list.bookmarks.count, "movie") %> saved in this list.
+      </p>
+    </div>
+  </section>
+
+  <section class="list-show-container">
+    <div class="bookmark-form-card mb-5">
+      <h2>Add a movie to this list</h2>
+
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+        <%= f.association :movie,
+                          label_method: :title,
+                          value_method: :id,
+                          prompt: "Choose a movie" %>
+
+        <%= f.input :comment,
+                    placeholder: "Why do you want to save this movie?" %>
+
+        <%= f.submit "Add movie", class: "btn btn-primary" %>
+      <% end %>
     </div>
 
-    <div class="d-flex gap-2">
-      <%= link_to "Add movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
-      <%= link_to "Back", lists_path, class: "btn btn-outline-secondary" %>
-    </div>
-  </div>
-
-  <% if @list.bookmarks.any? %>
-    <div class="row">
-      <% @list.bookmarks.each do |bookmark| %>
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <% if @list.bookmarks.any? %>
+      <div class="movies-grid">
+        <% @list.bookmarks.each do |bookmark| %>
           <div class="movie-card">
             <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
 
             <div class="movie-card-body">
-              <h2 class="movie-title"><%= bookmark.movie.title %></h2>
+              <div class="d-flex justify-content-between align-items-start gap-3">
+                <h2 class="movie-title"><%= bookmark.movie.title %></h2>
+
+                <span class="movie-rating">
+                  <%= bookmark.movie.rating.round(1) %>
+                </span>
+              </div>
 
               <p class="movie-overview">
                 <%= bookmark.movie.overview %>
-              </p>
-
-              <p>
-                <strong>Rating:</strong>
-                <%= bookmark.movie.rating %>
               </p>
 
               <p class="movie-comment">
@@ -35,19 +52,85 @@
                 <%= bookmark.comment %>
               </p>
 
-              <%= link_to "Delete",
+              <%= link_to "Delete bookmark",
                           bookmark_path(bookmark),
                           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
                           class: "btn btn-outline-danger btn-sm" %>
             </div>
           </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <p>No movies in this list yet.</p>
+      </div>
+    <% end %>
+
+      <<section id="reviews" class="reviews-section mt-5">
+
+    <div class="reviews-header mb-4">
+    <div>
+      <p class="eyebrow">Community</p>
+      <h2>Reviews</h2>
+    </div>
+
+  <% if @list.reviews.any? %>
+    <% average_rating = @list.reviews.average(:rating).to_f.round(1) %>
+
+    <div class="average-rating">
+      <span class="average-rating-score"><%= average_rating %>/5</span>
+      <span class="average-rating-star">★</span>
+    </div>
+  <% end %>
+</div>
+
+  <% if @list.reviews.any? %>
+    <div class="reviews-list mb-4">
+      <% @list.reviews.each do |review| %>
+        <div class="review-card">
+          <div>
+            <strong>
+              <%= "★" * review.rating %><%= "☆" * (5 - review.rating) %>
+            </strong>
+
+            <p><%= review.content %></p>
+          </div>
+
+          <%= link_to "Delete",
+                      review_path(review),
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                      class: "review-delete-link" %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <div class="text-center py-5">
-      <p class="text-muted">No movies in this list yet.</p>
-      <%= link_to "Add your first movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+    <div class="empty-reviews mb-4">
+      <p>No reviews yet. Be the first to comment on this list.</p>
     </div>
   <% end %>
+
+    <div class="review-form-card">
+      <div class="review-form-header">
+        <p class="eyebrow">Add your opinion</p>
+        <h3>Leave a review</h3>
+      </div>
+
+      <%= simple_form_for [@list, @review] do |f| %>
+        <%= f.input :content,
+                    label: false,
+                    placeholder: "What do you think about this list?" %>
+
+        <div class="review-rating-row">
+          <%= f.input :rating,
+                      label: false,
+                      collection: 0..5,
+                      prompt: "Rating" %>
+
+          <%= f.submit "Add review", class: "btn btn-review" %>
+        </div>
+      <% end %>
+    </div>
+
+  </section>
+
 </div>
