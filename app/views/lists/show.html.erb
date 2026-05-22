@@ -1,8 +1,24 @@
 <div class="home-page">
-  <section class="hero-section hero-section-with-back">
+  <section class="hero-section hero-section-with-back list-hero-image">
     <%= link_to "← Back to lists", lists_path, class: "back-link" %>
 
-    <div>
+    <% if @list.photo.attached? %>
+      <%= cl_image_tag @list.photo.key,
+                       height: 500,
+                       width: 1200,
+                       crop: :fill,
+                       class: "list-show-cover" %>
+    <% else %>
+      <img
+        src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
+        class="list-show-cover"
+        alt="Cinema"
+      >
+    <% end %>
+
+    <div class="list-hero-overlay"></div>
+
+    <div class="list-hero-content">
       <p class="eyebrow">Movie list</p>
       <h1><%= @list.name %></h1>
       <p class="hero-text">
@@ -66,71 +82,69 @@
       </div>
     <% end %>
 
-      <<section id="reviews" class="reviews-section mt-5">
-
-    <div class="reviews-header mb-4">
-    <div>
-      <p class="eyebrow">Community</p>
-      <h2>Reviews</h2>
-    </div>
-
-  <% if @list.reviews.any? %>
-    <% average_rating = @list.reviews.average(:rating).to_f.round(1) %>
-
-    <div class="average-rating">
-      <span class="average-rating-score"><%= average_rating %>/5</span>
-      <span class="average-rating-star">★</span>
-    </div>
-  <% end %>
-</div>
-
-  <% if @list.reviews.any? %>
-    <div class="reviews-list mb-4">
-      <% @list.reviews.each do |review| %>
-        <div class="review-card">
-          <div>
-            <strong>
-              <%= "★" * review.rating %><%= "☆" * (5 - review.rating) %>
-            </strong>
-
-            <p><%= review.content %></p>
-          </div>
-
-          <%= link_to "Delete",
-                      review_path(review),
-                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                      class: "review-delete-link" %>
+    <section id="reviews" class="reviews-section mt-5">
+      <div class="reviews-header mb-4">
+        <div>
+          <p class="eyebrow">Community</p>
+          <h2>Reviews</h2>
         </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="empty-reviews mb-4">
-      <p>No reviews yet. Be the first to comment on this list.</p>
-    </div>
-  <% end %>
 
-    <div class="review-form-card">
-      <div class="review-form-header">
-        <p class="eyebrow">Add your opinion</p>
-        <h3>Leave a review</h3>
+        <% if @list.reviews.any? %>
+          <% average_rating = @list.reviews.average(:rating).to_f.round(1) %>
+
+          <div class="average-rating">
+            <span class="average-rating-score"><%= average_rating %>/5</span>
+            <span class="average-rating-star">★</span>
+          </div>
+        <% end %>
       </div>
 
-      <%= simple_form_for [@list, @review] do |f| %>
-        <%= f.input :content,
-                    label: false,
-                    placeholder: "What do you think about this list?" %>
+      <% if @list.reviews.any? %>
+        <div class="reviews-list mb-4">
+          <% @list.reviews.each do |review| %>
+            <div class="review-card">
+              <div>
+                <strong>
+                  <%= "★" * review.rating %><%= "☆" * (5 - review.rating) %>
+                </strong>
 
-        <div class="review-rating-row">
-          <%= f.input :rating,
-                      label: false,
-                      collection: 0..5,
-                      prompt: "Rating" %>
+                <p><%= review.content %></p>
+              </div>
 
-          <%= f.submit "Add review", class: "btn btn-review" %>
+              <%= link_to "Delete",
+                          review_path(review),
+                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                          class: "review-delete-link" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="empty-reviews mb-4">
+          <p>No reviews yet. Be the first to comment on this list.</p>
         </div>
       <% end %>
-    </div>
 
+      <div class="review-form-card">
+        <div class="review-form-header">
+          <p class="eyebrow">Add your opinion</p>
+          <h3>Leave a review</h3>
+        </div>
+
+        <%= simple_form_for [@list, @review] do |f| %>
+          <%= f.input :content,
+                      label: false,
+                      placeholder: "What do you think about this list?" %>
+
+          <div class="review-rating-row">
+            <%= f.input :rating,
+                        label: false,
+                        collection: 0..5,
+                        prompt: "Rating" %>
+
+            <%= f.submit "Add review", class: "btn btn-review" %>
+          </div>
+        <% end %>
+      </div>
+    </section>
   </section>
-
 </div>

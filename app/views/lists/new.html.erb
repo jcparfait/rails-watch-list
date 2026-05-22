@@ -6,7 +6,7 @@
       <p class="eyebrow">New collection</p>
       <h1>Create a new list</h1>
       <p class="hero-text">
-        Give your movie collection a name.
+        Give your movie collection a name and add a cover image.
       </p>
     </div>
   </section>
@@ -17,6 +17,10 @@
         <%= f.input :name,
                     label: "List name",
                     placeholder: "Drama, Comedy, Classics..." %>
+
+        <%= f.input :photo,
+                    as: :file,
+                    label: "Cover image" %>
 
         <div class="d-flex gap-2 mt-3">
           <%= f.submit "Create list", class: "btn btn-primary" %>

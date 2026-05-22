@@ -11,7 +11,7 @@
 
   <section class="lists-grid">
     <% @lists.each do |list| %>
-      <% image_url =
+      <% fallback_image_url =
         case list.name.downcase
         when /drama/
           "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop"
@@ -26,6 +26,14 @@
         end
       %>
 
+      <% image_url =
+        if list.photo.attached?
+          cl_image_path list.photo.key, height: 400, width: 600, crop: :fill
+        else
+          fallback_image_url
+        end
+      %>
+
       <%= link_to list_path(list),
                   class: "list-card",
                   style: "background-image: linear-gradient(180deg, rgba(10, 10, 15, 0.12), rgba(10, 10, 15, 0.88)), url('#{image_url}');" do %>
@@ -35,7 +43,6 @@
           <h2><%= list.name %></h2>
           <p><%= pluralize(list.movies.count, "movie") %></p>
         </div>
-
 
       <% end %>
     <% end %>
