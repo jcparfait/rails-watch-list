@@ -17,7 +17,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
 
     if @list.save
-      redirect_to list_path(@list)
+      redirect_to lists_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,5 +27,5 @@ class ListsController < ApplicationController
 
   def list_params
   params.require(:list).permit(:name, :photo)
-end
+  end
 end
