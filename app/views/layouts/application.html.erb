@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Rails Watch List" %></title>
+    <title><%= content_for(:title) || "Reelist — Build your personal cinema" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Create personal movie collections and keep track of the films that matter to you.">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Rails Watch List">
+    <meta name="application-name" content="Reelist">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-  <nav class="navbar-watchlist">
-    <div class="container d-flex justify-content-between align-items-center">
-      <%= link_to "Watch List", root_path, class: "navbar-brand" %>
+    <nav class="navbar-watchlist" aria-label="Main navigation">
+      <div class="navbar-watchlist-inner">
+        <%= link_to root_path, class: "reelist-brand", aria: { label: "Reelist home" } do %>
+          <span class="reelist-brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span>Reelist</span>
+        <% end %>
 
-      <div class="d-flex align-items-center gap-3">
-        <%= link_to "New list", new_list_path, class: "btn btn-primary btn-sm" %>
+        <div class="navbar-watchlist-actions">
+          <%= link_to root_path, class: "navbar-link" do %>
+            Collections
+          <% end %>
+          <%= link_to new_list_path, class: "navbar-primary-action" do %>
+            <span aria-hidden="true">+</span>
+            New collection
+          <% end %>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <%= yield %>
-</body>
+    <%= yield %>
+  </body>
 </html>
