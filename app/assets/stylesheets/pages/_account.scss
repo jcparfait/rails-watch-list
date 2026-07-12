@@ -1,0 +1,120 @@
+/* =========================
+   ACCOUNT SETTINGS
+========================= */
+
+.account-page {
+  padding-bottom: 110px;
+}
+
+.account-hero {
+  margin-bottom: 36px;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.account-grid-single {
+  grid-template-columns: minmax(0, 680px);
+  justify-content: center;
+}
+
+.account-card-header {
+  margin-bottom: 22px;
+}
+
+.account-card-header h2,
+.account-side-panel h2 {
+  color: var(--reelist-cream);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+
+.account-form .form-text,
+.account-hint {
+  color: rgba(255, 246, 229, 0.54);
+  font-size: 13px;
+}
+
+.account-divider {
+  height: 1px;
+  margin: 24px 0;
+  background: var(--reelist-line);
+}
+
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.account-side-panel {
+  position: sticky;
+  top: 104px;
+  padding: 28px;
+  border: 1px solid var(--reelist-line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(var(--reelist-gold-rgb), 0.13), transparent 32%),
+    linear-gradient(180deg, rgba(255, 246, 229, 0.075), rgba(255, 246, 229, 0.038));
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.26);
+}
+
+.account-side-panel > p:not(.eyebrow),
+.account-danger-zone p:not(.eyebrow) {
+  color: var(--reelist-cream-muted);
+  line-height: 1.5;
+}
+
+.account-avatar {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 24px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--reelist-burgundy), var(--reelist-burgundy-deep));
+  border: 1px solid rgba(var(--reelist-gold-rgb), 0.44);
+  color: var(--reelist-gold-soft);
+  box-shadow: inset 0 0 0 1px rgba(255, 246, 229, 0.07), 0 20px 44px rgba(0, 0, 0, 0.32);
+}
+
+.account-avatar svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.account-side-actions {
+  margin-top: 22px;
+}
+
+.account-danger-zone {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(223, 111, 125, 0.22);
+}
+
+.account-danger-zone form {
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-side-panel {
+    position: static;
+  }
+}
