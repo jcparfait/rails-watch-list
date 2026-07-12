@@ -6,24 +6,35 @@
       <p class="eyebrow">New collection</p>
       <h1>Create a new list</h1>
       <p class="hero-text">
-        Give your movie collection a name and add a cover image.
+        Give your collection a name and choose a cinematic cover from Pexels.
       </p>
     </div>
   </section>
 
   <section class="list-show-container">
+    <div class="list-form-card cover-search-card">
+      <h2>Find a cover image</h2>
+      <p class="cover-picker-help">Search first, choose an image, then save the collection.</p>
+
+      <%= form_with url: new_list_path, method: :get, data: { turbo: false }, class: "cover-search-form" do |form| %>
+        <%= form.search_field :cover_query,
+                              value: @cover_query,
+                              placeholder: "cinema, movie theater, noir, sci-fi…",
+                              class: "form-control" %>
+        <%= form.submit "Search Pexels", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
     <div class="list-form-card">
       <%= simple_form_for @list do |f| %>
         <%= f.input :name,
-                    label: "List name",
+                    label: "Collection name",
                     placeholder: "Drama, Comedy, Classics..." %>
 
-        <%= f.input :photo,
-                    as: :file,
-                    label: "Cover image" %>
+        <%= render "cover_options", list: @list %>
 
         <div class="d-flex gap-2 mt-3">
-          <%= f.submit "Create list", class: "btn btn-primary" %>
+          <%= f.submit "Create collection", class: "btn btn-primary" %>
           <%= link_to "Cancel", lists_path, class: "btn btn-outline-light" %>
         </div>
       <% end %>
