@@ -20,6 +20,7 @@
       <p class="hero-text"><%= pluralize(@list.bookmarks.count, "movie") %> saved in this list.</p>
 
       <div class="d-flex flex-wrap gap-2 mt-3">
+        <%= link_to "Search a movie", list_movie_search_path(@list), class: "btn btn-primary btn-sm" %>
         <%= link_to "Edit collection", edit_list_path(@list), class: "btn btn-outline-light btn-sm" %>
         <%= link_to "Delete collection",
                     list_path(@list),
@@ -30,30 +31,25 @@
   </section>
 
   <section class="list-show-container">
-    <div class="bookmark-form-card mb-5">
-      <h2>Add a movie to this list</h2>
-
-      <%= simple_form_for [@list, @bookmark] do |f| %>
-        <%= f.association :movie,
-                          label_method: :title,
-                          value_method: :id,
-                          prompt: "Choose a movie" %>
-        <%= f.input :comment, placeholder: "Why do you want to save this movie?" %>
-        <%= f.submit "Add movie", class: "btn btn-primary" %>
-      <% end %>
-    </div>
-
     <% if @list.bookmarks.any? %>
       <div class="movies-grid">
         <% @list.bookmarks.each do |bookmark| %>
           <div class="movie-card">
-            <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
+            <% if bookmark.movie.poster_url.present? %>
+              <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
+            <% else %>
+              <div class="empty-state">No poster</div>
+            <% end %>
 
             <div class="movie-card-body">
               <div class="d-flex justify-content-between align-items-start gap-3">
                 <h2 class="movie-title"><%= bookmark.movie.title %></h2>
-                <span class="movie-rating"><%= bookmark.movie.rating.round(1) %></span>
+                <span class="movie-rating"><%= bookmark.movie.rating.to_f.round(1) %></span>
               </div>
+
+              <% if bookmark.movie.release_date.present? %>
+                <p class="text-secondary"><%= bookmark.movie.release_date.year %></p>
+              <% end %>
 
               <p class="movie-overview"><%= bookmark.movie.overview %></p>
               <p class="movie-comment"><strong>Personal note:</strong> <%= bookmark.comment %></p>
@@ -72,6 +68,7 @@
     <% else %>
       <div class="empty-state">
         <p>No movies in this list yet.</p>
+        <%= link_to "Search TMDB", list_movie_search_path(@list), class: "btn btn-primary mt-2" %>
       </div>
     <% end %>
 
