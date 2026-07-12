@@ -17,6 +17,7 @@
     <%= form_with url: movie_night_path,
                   scope: :movie_night,
                   method: :post,
+                  data: { turbo: false },
                   class: "bookmark-form-card" do |form| %>
       <h2>Tonight's filters</h2>
 
@@ -57,8 +58,8 @@
     <% end %>
 
     <% if @movie.present? %>
-      <div class="movies-grid mt-4">
-        <article class="movie-card">
+      <div class="movie-night-result mt-4">
+        <article class="movie-card movie-night-card">
           <% if @movie[:poster_url].present? %>
             <%= image_tag @movie[:poster_url], alt: @movie[:title] %>
           <% else %>
@@ -104,6 +105,10 @@
             <% end %>
           </div>
         </article>
+      </div>
+    <% elsif @mood.present? || @duration.present? || @genre.present? %>
+      <div class="empty-state mt-4">
+        <p>No recommendation was generated. Try a broader mood, a longer duration, or “Any genre”.</p>
       </div>
     <% end %>
   </section>
