@@ -1,9 +1,12 @@
 class ListsController < ApplicationController
+  HERO_VIDEO_ID = 7_719_822
+
   before_action :set_list, only: [ :show, :edit, :update, :destroy ]
   before_action :load_cover_images, only: [ :new, :edit ]
 
   def index
     @lists = current_user.lists.includes(:movies).order(created_at: :desc)
+    @hero_video = fetch_hero_video
   end
 
   def show
@@ -62,5 +65,13 @@ class ListsController < ApplicationController
     @cover_images = Pexels::Client.new.search_photos(query: @cover_query)
   rescue Pexels::Client::Error => e
     flash.now[:alert] = e.message
+  end
+
+  def fetch_hero_video
+    Rails.cache.fetch("pexels/hero_video/#{HERO_VIDEO_ID}", expires_in: 12.hours) do
+      Pexels::Client.new.video(HERO_VIDEO_ID)
+    end
+  rescue Pexels::Client::Error
+    nil
   end
 end
