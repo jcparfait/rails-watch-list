@@ -17,7 +17,12 @@
     <%= form_with url: movie_night_path,
                   scope: :movie_night,
                   method: :post,
-                  data: { turbo: false },
+                  data: {
+                    turbo: false,
+                    controller: "loading",
+                    action: "submit->loading#submit",
+                    loading_text_value: "Finding..."
+                  },
                   class: "bookmark-form-card" do |form| %>
       <h2>Tonight's filters</h2>
 
@@ -49,11 +54,18 @@
         </div>
       </div>
 
-      <div class="mt-4 d-flex flex-wrap gap-2">
-        <%= form.submit @movie.present? ? "Find another film" : "Find a film", class: "btn btn-primary" %>
+      <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+        <%= form.submit @movie.present? ? "Find another film" : "Find a film",
+                        class: "btn btn-primary",
+                        data: { loading_target: "button" } %>
         <% if @movie.present? %>
           <%= link_to "Reset", movie_night_path, class: "btn btn-outline-light" %>
         <% end %>
+      </div>
+
+      <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <span>Searching TMDB for a recommendation…</span>
       </div>
     <% end %>
 
@@ -80,7 +92,13 @@
             <p class="movie-overview"><%= @movie[:overview] %></p>
 
             <% if @lists.any? %>
-              <%= form_with url: save_movie_night_path, method: :post do |form| %>
+              <%= form_with url: save_movie_night_path,
+                            method: :post,
+                            data: {
+                              controller: "loading",
+                              action: "submit->loading#submit",
+                              loading_text_value: "Saving..."
+                            } do |form| %>
                 <%= form.hidden_field :tmdb_id, value: @movie[:tmdb_id] %>
 
                 <%= label_tag :list_id, "Save to collection" %>
@@ -95,7 +113,11 @@
                                    class: "form-control mb-2",
                                    placeholder: "Personal note" %>
 
-                <%= form.submit "Save this film", class: "btn btn-primary w-100" %>
+                <%= form.submit "Save this film", class: "btn btn-primary w-100", data: { loading_target: "button" } %>
+                <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+                  <span class="loading-spinner" aria-hidden="true"></span>
+                  <span>Saving this film…</span>
+                </div>
               <% end %>
             <% else %>
               <div class="empty-state mt-3">
@@ -108,7 +130,8 @@
       </div>
     <% elsif @mood.present? || @duration.present? || @genre.present? %>
       <div class="empty-state mt-4">
-        <p>No recommendation was generated. Try a broader mood, a longer duration, or “Any genre”.</p>
+        <h2>No film found yet.</h2>
+        <p>Try a broader mood, a longer duration, or “Any genre”.</p>
       </div>
     <% end %>
   </section>
