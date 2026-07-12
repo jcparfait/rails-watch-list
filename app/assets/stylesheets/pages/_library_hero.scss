@@ -11,9 +11,14 @@
 
 .portfolio-hero-cinema {
   position: relative;
-  min-height: 430px;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  height: 460px;
+  margin: 0;
   overflow: hidden;
-  padding: 72px 0 58px;
+  padding: 64px 48px 54px;
+  box-sizing: border-box;
   isolation: isolate;
 }
 
@@ -28,17 +33,18 @@
 .portfolio-hero-video {
   z-index: -3;
   object-fit: cover;
-  opacity: 0.34;
-  filter: saturate(0.78) contrast(1.08) brightness(0.72);
+  object-position: center 42%;
+  opacity: 0.68;
+  filter: saturate(0.95) contrast(1.08) brightness(0.86);
 }
 
 .portfolio-hero-video-shade {
   z-index: -2;
   background:
-    radial-gradient(circle at 20% 32%, rgba(var(--reelist-burgundy-rgb), 0.42), transparent 34%),
-    radial-gradient(circle at 86% 28%, rgba(var(--reelist-gold-rgb), 0.16), transparent 28%),
-    linear-gradient(90deg, rgba(20, 11, 18, 0.88) 0%, rgba(20, 11, 18, 0.58) 46%, rgba(20, 11, 18, 0.86) 100%),
-    linear-gradient(180deg, rgba(20, 11, 18, 0.28), rgba(20, 11, 18, 0.96));
+    radial-gradient(circle at 18% 34%, rgba(var(--reelist-burgundy-rgb), 0.34), transparent 32%),
+    radial-gradient(circle at 88% 34%, rgba(var(--reelist-gold-rgb), 0.12), transparent 26%),
+    linear-gradient(90deg, rgba(20, 11, 18, 0.78) 0%, rgba(20, 11, 18, 0.42) 48%, rgba(20, 11, 18, 0.72) 100%),
+    linear-gradient(180deg, rgba(20, 11, 18, 0.18), rgba(20, 11, 18, 0.78));
 }
 
 .portfolio-hero-copy {
@@ -101,10 +107,10 @@
 
 .portfolio-hero-credit {
   position: absolute;
-  right: 24px;
+  right: 48px;
   bottom: 18px;
   z-index: 2;
-  color: rgba(255, 246, 229, 0.56);
+  color: rgba(255, 246, 229, 0.66);
   font-size: 11px;
   text-decoration: none;
 }
@@ -117,10 +123,22 @@
   padding-top: 62px;
 }
 
+@media (min-width: 1280px) {
+  .portfolio-hero-cinema {
+    padding-left: calc((100vw - 1240px) / 2);
+    padding-right: calc((100vw - 1240px) / 2);
+  }
+
+  .portfolio-hero-credit {
+    right: calc((100vw - 1240px) / 2);
+  }
+}
+
 @media (max-width: 900px) {
   .portfolio-hero-cinema {
-    min-height: auto;
-    padding: 58px 0 48px;
+    height: auto;
+    min-height: 430px;
+    padding: 58px 32px 48px;
   }
 
   .portfolio-hero-panel {
@@ -132,7 +150,7 @@
 
 @media (max-width: 640px) {
   .portfolio-hero-cinema {
-    padding: 46px 0 38px;
+    padding: 46px 20px 44px;
     gap: 26px;
   }
 
@@ -145,7 +163,14 @@
   }
 
   .portfolio-hero-video {
-    opacity: 0.28;
+    opacity: 0.56;
+    object-position: center center;
+  }
+
+  .portfolio-hero-video-shade {
+    background:
+      linear-gradient(90deg, rgba(20, 11, 18, 0.82), rgba(20, 11, 18, 0.56)),
+      linear-gradient(180deg, rgba(20, 11, 18, 0.12), rgba(20, 11, 18, 0.86));
   }
 
   .portfolio-hero-panel {
@@ -167,8 +192,8 @@
   }
 
   .portfolio-hero-credit {
-    left: 16px;
-    right: 16px;
+    left: 20px;
+    right: 20px;
     bottom: 10px;
     font-size: 10px;
   }
