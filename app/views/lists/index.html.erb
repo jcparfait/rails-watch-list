@@ -51,13 +51,7 @@
             end
           %>
 
-          <% image_url =
-            if list.photo.attached?
-              cl_image_path list.photo.key, height: 700, width: 1100, crop: :fill
-            else
-              fallback_image_url
-            end
-          %>
+          <% image_url = list.photo.attached? ? url_for(list.photo) : fallback_image_url %>
 
           <%= link_to list_path(list),
                       class: "list-card portfolio-list-card",
