@@ -12,9 +12,12 @@ Rails.application.routes.draw do
     get "movies/search", to: "movie_searches#index", as: :movie_search
     post "movies/import", to: "movie_imports#create", as: :movie_import
     resources :bookmarks, only: [ :new, :create ]
-    resources :reviews, only: [ :create ]
+  end
+
+  resources :movies, only: [] do
+    resources :movie_reviews, only: [ :create ]
   end
 
   resources :bookmarks, only: [ :edit, :update, :destroy ]
-  resources :reviews, only: [ :edit, :update, :destroy ]
+  resources :movie_reviews, only: [ :destroy ]
 end
