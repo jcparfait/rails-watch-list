@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :movie_reviews, dependent: :destroy
 
+  validates :name, length: { maximum: 80 }
+
   after_create :claim_legacy_content
 
   private
