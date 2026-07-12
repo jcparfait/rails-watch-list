@@ -36,9 +36,20 @@
     <% if @lists.any? %>
       <div class="lists-grid portfolio-lists-grid">
         <% @lists.each do |list| %>
-          <%= link_to list_path(list),
-                      class: "list-card portfolio-list-card #{'list-card-no-cover' if list_cover_image_source(list).blank?}",
-                      style: list_card_background_style(list) do %>
+          <% cover_image_url = list_cover_image_source(list) %>
+
+          <%= link_to list_path(list), class: "list-card portfolio-list-card #{'list-card-no-cover' if cover_image_url.blank?}" do %>
+            <% if cover_image_url.present? %>
+              <%= image_tag cover_image_url,
+                            class: "portfolio-list-card-image",
+                            alt: list_cover_alt(list),
+                            loading: "lazy" %>
+            <% else %>
+              <div class="portfolio-list-card-placeholder" aria-hidden="true"></div>
+            <% end %>
+
+            <div class="portfolio-list-card-shade" aria-hidden="true"></div>
+
             <div class="portfolio-list-card-top">
               <span class="list-card-label">Collection</span>
               <span class="portfolio-list-card-arrow" aria-hidden="true">↗</span>
