@@ -1,27 +1,53 @@
 <% content_for :title, "My collections — Reelist" %>
 
 <div class="home-page home-page-portfolio">
-  <section class="hero-section portfolio-hero">
+  <section class="hero-section portfolio-hero portfolio-hero-cinema">
+    <% if @hero_video.present? %>
+      <video class="portfolio-hero-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"
+             poster="<%= @hero_video[:poster_url] %>">
+        <source src="<%= @hero_video[:video_url] %>" type="video/mp4">
+      </video>
+    <% end %>
+
+    <div class="portfolio-hero-video-shade" aria-hidden="true"></div>
+
     <div class="portfolio-hero-copy">
-      <p class="eyebrow">Your personal cinema</p>
-      <h1>Keep the films that stay with you.</h1>
+      <p class="eyebrow">Your film shelf</p>
+      <h1>Save films into collections.</h1>
       <p class="hero-text">
-        Build thoughtful collections, remember what you loved, and shape a film library that feels personal.
+        Search TMDB, organise your lists, rate what you watch, and find the right film for tonight.
       </p>
 
       <div class="portfolio-hero-actions">
         <%= link_to new_list_path, class: "hero-primary-action" do %>
-          Create a collection
-          <span aria-hidden="true">↗</span>
+          Create collection
+          <span aria-hidden="true">+</span>
         <% end %>
-        <a href="#collections" class="hero-secondary-action">Browse collections</a>
+        <%= link_to movie_night_path, class: "hero-secondary-action" do %>
+          Try Movie Night
+          <span aria-hidden="true">◐</span>
+        <% end %>
       </div>
     </div>
 
-    <div class="portfolio-hero-stat" aria-label="Collection summary">
+    <aside class="portfolio-hero-panel" aria-label="Library summary">
       <span class="portfolio-hero-stat-value"><%= @lists.count %></span>
       <span class="portfolio-hero-stat-label"><%= "collection".pluralize(@lists.count) %></span>
-    </div>
+      <p>Build a library that actually helps you choose what to watch.</p>
+    </aside>
+
+    <% if @hero_video.present? %>
+      <%= link_to "Video by #{@hero_video[:author]} on Pexels",
+                  @hero_video[:source_url],
+                  target: "_blank",
+                  rel: "noopener",
+                  class: "portfolio-hero-credit" %>
+    <% end %>
   </section>
 
   <section class="collections-section" id="collections">
