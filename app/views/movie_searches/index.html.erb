@@ -12,7 +12,14 @@
   </section>
 
   <section class="list-show-container">
-    <%= form_with url: list_movie_search_path(@list), method: :get, class: "bookmark-form-card" do |form| %>
+    <%= form_with url: list_movie_search_path(@list),
+                  method: :get,
+                  data: {
+                    controller: "loading",
+                    action: "submit->loading#submit",
+                    loading_text_value: "Searching..."
+                  },
+                  class: "bookmark-form-card" do |form| %>
       <%= form.label :query, "Movie title" %>
       <div class="d-flex gap-2 mt-2">
         <%= form.search_field :query,
@@ -21,13 +28,18 @@
                               class: "form-control",
                               required: true,
                               autofocus: true %>
-        <%= form.submit "Search", class: "btn btn-primary" %>
+        <%= form.submit "Search", class: "btn btn-primary", data: { loading_target: "button" } %>
+      </div>
+      <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <span>Searching TMDB…</span>
       </div>
     <% end %>
 
     <% if @query.present? && @movies.empty? && flash.now[:alert].blank? %>
       <div class="empty-state mt-4">
-        <p>No results found for “<%= @query %>”.</p>
+        <h2>No results found.</h2>
+        <p>No result matched “<%= @query %>”. Try the original title, a shorter title, or another spelling.</p>
       </div>
     <% elsif @movies.any? %>
       <div class="movies-grid mt-4">
@@ -51,12 +63,22 @@
 
               <p class="movie-overview"><%= truncate(movie[:overview], length: 180) %></p>
 
-              <%= form_with url: list_movie_import_path(@list), method: :post do |form| %>
+              <%= form_with url: list_movie_import_path(@list),
+                            method: :post,
+                            data: {
+                              controller: "loading",
+                              action: "submit->loading#submit",
+                              loading_text_value: "Adding..."
+                            } do |form| %>
                 <%= form.hidden_field :tmdb_id, value: movie[:tmdb_id] %>
                 <%= form.text_field :comment,
                                     placeholder: "Personal note (optional)",
                                     class: "form-control mb-2" %>
-                <%= form.submit "Add to #{@list.name}", class: "btn btn-primary w-100" %>
+                <%= form.submit "Add to #{@list.name}", class: "btn btn-primary w-100", data: { loading_target: "button" } %>
+                <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+                  <span class="loading-spinner" aria-hidden="true"></span>
+                  <span>Adding this film…</span>
+                </div>
               <% end %>
             </div>
           </article>
