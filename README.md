@@ -85,7 +85,7 @@ Password: password
 ## Quality checks
 
 ```bash
-bundle exec rspec
+bin/rails test
 bundle exec brakeman --no-pager
 bundle exec bundle-audit check --update
 bundle exec rubocop
