@@ -36,26 +36,9 @@
     <% if @lists.any? %>
       <div class="lists-grid portfolio-lists-grid">
         <% @lists.each do |list| %>
-          <% fallback_image_url =
-            case list.name.downcase
-            when /drama/
-              "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop"
-            when /comedy/
-              "https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=1200&auto=format&fit=crop"
-            when /classic/
-              "https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=1200&auto=format&fit=crop"
-            when /rewatch/
-              "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1200&auto=format&fit=crop"
-            else
-              "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
-            end
-          %>
-
-          <% image_url = list.photo.attached? ? url_for(list.photo) : fallback_image_url %>
-
           <%= link_to list_path(list),
-                      class: "list-card portfolio-list-card",
-                      style: "background-image: linear-gradient(180deg, rgba(8, 9, 14, 0.05), rgba(8, 9, 14, 0.92)), url('#{image_url}');" do %>
+                      class: "list-card portfolio-list-card #{'list-card-no-cover' if list_cover_image_source(list).blank?}",
+                      style: list_card_background_style(list) do %>
             <div class="portfolio-list-card-top">
               <span class="list-card-label">Collection</span>
               <span class="portfolio-list-card-arrow" aria-hidden="true">↗</span>
@@ -64,6 +47,9 @@
             <div class="list-card-content">
               <h3><%= list.name %></h3>
               <p><%= pluralize(list.movies.count, "film") %></p>
+              <% if pexels_cover_credit?(list) %>
+                <span class="portfolio-list-card-credit">Photo: <%= list.cover_image_author %> / Pexels</span>
+              <% end %>
             </div>
           <% end %>
         <% end %>
