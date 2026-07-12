@@ -101,6 +101,139 @@
   margin-bottom: 0;
 }
 
+/* =========================
+   MOVIE REVIEWS
+========================= */
+
+.movie-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #b8b2a7;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.movie-meta-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.06);
+  border: 1px solid rgba(244, 241, 234, 0.1);
+}
+
+.movie-meta-row .app-rating {
+  color: #f4f1ea;
+  border-color: rgba(216, 125, 74, 0.26);
+  background: rgba(216, 125, 74, 0.12);
+}
+
+.movie-review-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(244, 241, 234, 0.045);
+  border: 1px solid rgba(244, 241, 234, 0.1);
+}
+
+.movie-review-panel h3 {
+  color: #f4f1ea;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.movie-review-fields {
+  display: grid;
+  gap: 10px;
+}
+
+.movie-review-form .form-select,
+.movie-review-form .form-control,
+.movie-community-reviews .form-select,
+.movie-community-reviews .form-control {
+  background: rgba(11, 12, 18, 0.52);
+  border: 1px solid rgba(244, 241, 234, 0.14);
+  color: #f4f1ea;
+  border-radius: 12px;
+}
+
+.movie-review-form .form-control::placeholder {
+  color: rgba(244, 241, 234, 0.42);
+}
+
+.movie-community-reviews {
+  margin-top: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(244, 241, 234, 0.1);
+  background: rgba(11, 12, 18, 0.28);
+  overflow: hidden;
+}
+
+.movie-community-reviews summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  color: #f4f1ea;
+  font-weight: 800;
+  list-style: none;
+}
+
+.movie-community-reviews summary::-webkit-details-marker {
+  display: none;
+}
+
+.movie-community-reviews summary span:last-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 999px;
+  background: #d87d4a;
+  color: #111218;
+  font-size: 13px;
+}
+
+.movie-community-reviews-list {
+  display: grid;
+  gap: 12px;
+  padding: 0 16px 16px;
+}
+
+.movie-community-review {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(244, 241, 234, 0.055);
+  border: 1px solid rgba(244, 241, 234, 0.08);
+}
+
+.movie-community-review-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #d87d4a;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.movie-community-review p,
+.movie-community-reviews-empty {
+  color: #d8d0c3;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.movie-community-reviews-empty {
+  padding: 0 16px 16px;
+}
+
 @keyframes reel-spin {
   to {
     transform: rotate(360deg);
