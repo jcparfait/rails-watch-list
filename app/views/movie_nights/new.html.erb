@@ -1,0 +1,110 @@
+<% content_for :title, "Movie Night — Reelist" %>
+
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to collections", lists_path, class: "back-link" %>
+
+    <div>
+      <p class="eyebrow">Movie Night</p>
+      <h1>Find the right film for tonight.</h1>
+      <p class="hero-text">
+        Pick a mood, choose how much time you have, and Reelist will suggest one film from TMDB.
+      </p>
+    </div>
+  </section>
+
+  <section class="list-show-container">
+    <%= form_with url: movie_night_path,
+                  scope: :movie_night,
+                  method: :post,
+                  class: "bookmark-form-card" do |form| %>
+      <h2>Tonight's filters</h2>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <%= form.label :mood, "Mood" %>
+          <%= form.select :mood,
+                          options_for_select(@mood_options, @mood),
+                          { prompt: "Choose a mood" },
+                          class: "form-select",
+                          required: true %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :duration, "Duration" %>
+          <%= form.select :duration,
+                          options_for_select(@duration_options, @duration),
+                          { prompt: "Choose a duration" },
+                          class: "form-select",
+                          required: true %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :genre, "Genre" %>
+          <%= form.select :genre,
+                          options_for_select([["Any genre", ""]] + @genre_options, @genre),
+                          {},
+                          class: "form-select" %>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2">
+        <%= form.submit @movie.present? ? "Find another film" : "Find a film", class: "btn btn-primary" %>
+        <% if @movie.present? %>
+          <%= link_to "Reset", movie_night_path, class: "btn btn-outline-light" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @movie.present? %>
+      <div class="movies-grid mt-4">
+        <article class="movie-card">
+          <% if @movie[:poster_url].present? %>
+            <%= image_tag @movie[:poster_url], alt: @movie[:title] %>
+          <% else %>
+            <div class="empty-state">No poster</div>
+          <% end %>
+
+          <div class="movie-card-body">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <h2 class="movie-title"><%= @movie[:title] %></h2>
+              <span class="movie-rating"><%= @movie[:rating].round(1) %></span>
+            </div>
+
+            <p class="text-secondary mb-2">
+              <% details = [@movie[:release_date].to_s.first(4), @movie[:runtime].present? ? "#{@movie[:runtime]} min" : nil, @movie[:genres]].compact_blank %>
+              <%= details.join(" · ") %>
+            </p>
+
+            <p class="movie-overview"><%= @movie[:overview] %></p>
+
+            <% if @lists.any? %>
+              <%= form_with url: save_movie_night_path, method: :post do |form| %>
+                <%= form.hidden_field :tmdb_id, value: @movie[:tmdb_id] %>
+
+                <%= label_tag :list_id, "Save to collection" %>
+                <%= select_tag :list_id,
+                               options_from_collection_for_select(@lists, :id, :name),
+                               prompt: "Choose a collection",
+                               class: "form-select mb-2",
+                               required: true %>
+
+                <%= text_field_tag :comment,
+                                   "Recommended by Movie Night.",
+                                   class: "form-control mb-2",
+                                   placeholder: "Personal note" %>
+
+                <%= form.submit "Save this film", class: "btn btn-primary w-100" %>
+              <% end %>
+            <% else %>
+              <div class="empty-state mt-3">
+                <p>Create a collection before saving this recommendation.</p>
+                <%= link_to "Create a collection", new_list_path, class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </article>
+      </div>
+    <% end %>
+  </section>
+</div>
