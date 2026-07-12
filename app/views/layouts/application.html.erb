@@ -9,7 +9,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
@@ -24,25 +23,30 @@
     <nav class="navbar-watchlist" aria-label="Main navigation">
       <div class="navbar-watchlist-inner">
         <%= link_to root_path, class: "reelist-brand", aria: { label: "Reelist home" } do %>
-          <span class="reelist-brand-mark" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+          <span class="reelist-brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
           <span>Reelist</span>
         <% end %>
 
         <div class="navbar-watchlist-actions">
-          <%= link_to root_path, class: "navbar-link" do %>
-            Collections
-          <% end %>
-          <%= link_to new_list_path, class: "navbar-primary-action" do %>
-            <span aria-hidden="true">+</span>
-            New collection
+          <% if user_signed_in? %>
+            <%= link_to "Collections", root_path, class: "navbar-link" %>
+            <span class="navbar-user-email"><%= current_user.email %></span>
+            <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link" %>
+            <%= link_to new_list_path, class: "navbar-primary-action" do %>
+              <span aria-hidden="true">+</span>
+              New collection
+            <% end %>
+          <% else %>
+            <%= link_to "Sign in", new_user_session_path, class: "navbar-link" %>
+            <%= link_to "Create account", new_user_registration_path, class: "navbar-primary-action" %>
           <% end %>
         </div>
       </div>
     </nav>
+
+    <% flash.each do |type, message| %>
+      <div class="app-flash app-flash-<%= type %>" role="status"><%= message %></div>
+    <% end %>
 
     <%= yield %>
   </body>
