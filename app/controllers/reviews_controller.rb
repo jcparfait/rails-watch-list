@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [ :edit, :update, :destroy ]
 
   def create
-    @list = List.find(params[:list_id])
+    @list = current_user.lists.find(params[:list_id])
     @review = @list.reviews.new(review_params)
     @review.user = current_user
 
