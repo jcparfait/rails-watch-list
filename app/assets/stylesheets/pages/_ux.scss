@@ -9,7 +9,8 @@
   z-index: 1100;
   display: grid;
   gap: 12px;
-  width: min(420px, calc(100vw - 32px));
+  width: calc(100vw - 32px);
+  max-width: 420px;
 }
 
 .app-flash {
