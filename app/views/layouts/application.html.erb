@@ -23,8 +23,12 @@
     <nav class="navbar-watchlist" aria-label="Main navigation">
       <div class="navbar-watchlist-inner">
         <%= link_to root_path, class: "reelist-brand", aria: { label: "Reelist home" } do %>
-          <span class="reelist-brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span>Reelist</span>
+          <% if asset_available?("logo/logoreelist.png") %>
+            <%= image_tag "logo/logoreelist.png", class: "reelist-brand-logo", alt: "Reelist logo" %>
+          <% else %>
+            <span class="reelist-brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <% end %>
+          <span class="reelist-brand-word">Reelist</span>
         <% end %>
 
         <div class="navbar-watchlist-actions">
