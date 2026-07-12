@@ -1,0 +1,120 @@
+/* =========================
+   UX FEEDBACK
+========================= */
+
+.app-flashes {
+  position: fixed;
+  top: 88px;
+  right: 24px;
+  z-index: 1100;
+  display: grid;
+  gap: 12px;
+  width: min(420px, calc(100vw - 32px));
+}
+
+.app-flash {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(244, 241, 234, 0.16);
+  background: rgba(17, 18, 24, 0.94);
+  color: #f4f1ea;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.app-flash.is-hiding {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.app-flash-notice {
+  border-color: rgba(216, 125, 74, 0.35);
+}
+
+.app-flash-alert,
+.app-flash-error {
+  border-color: rgba(255, 125, 125, 0.5);
+}
+
+.app-flash-close {
+  border: 0;
+  background: transparent;
+  color: rgba(244, 241, 234, 0.68);
+  font-size: 22px;
+  line-height: 1;
+  padding: 0;
+}
+
+.app-flash-close:hover {
+  color: #f4f1ea;
+}
+
+.loading-indicator {
+  align-items: center;
+  gap: 10px;
+  color: #d8d0c3;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(244, 241, 234, 0.25);
+  border-top-color: #d87d4a;
+  border-radius: 999px;
+  animation: reel-spin 0.7s linear infinite;
+}
+
+.is-loading [type="submit"] {
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.movie-night-result {
+  max-width: 560px;
+}
+
+.movie-night-card {
+  width: 100%;
+}
+
+.movie-night-card img {
+  height: 520px;
+}
+
+.empty-state h2 {
+  color: #f4f1ea;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.empty-state p:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes reel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-flashes {
+    top: 76px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+
+  .movie-night-card img {
+    height: 380px;
+  }
+}
