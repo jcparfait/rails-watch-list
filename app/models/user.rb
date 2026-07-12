@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :lists, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :movie_reviews, dependent: :destroy
 
   after_create :claim_legacy_content
 
