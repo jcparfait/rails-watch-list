@@ -9,6 +9,10 @@
 
 # Ignore all environment files.
 /.env*
+.env*
+
+# Keep the sample environment file in version control.
+!/.env.example
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -32,5 +36,3 @@
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key
-
-.env*
