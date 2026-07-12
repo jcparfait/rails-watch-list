@@ -103,7 +103,7 @@
 
 @media (max-width: 720px) {
   body {
-    padding-bottom: calc(90px + env(safe-area-inset-bottom));
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
   .navbar-watchlist {
@@ -117,45 +117,45 @@
     padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
     border-top: 1px solid rgba(var(--reelist-gold-rgb), 0.2);
     border-bottom: 0;
-    background: rgba(20, 11, 18, 0.92);
+    background: rgba(20, 11, 18, 0.94);
     box-shadow: 0 -18px 54px rgba(0, 0, 0, 0.38);
     backdrop-filter: blur(20px);
   }
 
   .navbar-watchlist-inner {
     width: calc(100% - 24px);
+    max-width: 430px;
     min-height: 56px;
     display: grid;
-    grid-template-columns: minmax(96px, 1fr) 44px 52px 44px;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    gap: 8px;
-  }
-
-  .reelist-brand {
-    order: 1;
-    min-width: 0;
-    gap: 8px;
-  }
-
-  .reelist-brand-logo,
-  .reelist-brand-mark {
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
-  }
-
-  .reelist-brand-word {
-    display: inline !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    white-space: nowrap;
+    justify-items: center;
+    gap: 6px;
+    margin: 0 auto;
   }
 
   .navbar-watchlist-actions {
     display: contents;
+  }
+
+  .reelist-brand,
+  .navbar-feature-action,
+  .navbar-primary-action,
+  .navbar-user-action {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
+    padding: 0;
+    border-radius: 18px;
+    justify-self: center;
+    transform: none;
+  }
+
+  .reelist-brand {
+    order: 1;
+    gap: 0;
+    border: 1px solid rgba(var(--reelist-gold-rgb), 0.18);
+    background: rgba(255, 246, 229, 0.035);
   }
 
   .navbar-feature-action {
@@ -164,40 +164,40 @@
 
   .navbar-primary-action {
     order: 3;
-    width: 52px;
-    min-height: 52px;
-    transform: translateY(-6px);
-    box-shadow: 0 18px 44px rgba(var(--reelist-gold-rgb), 0.24);
+    border-radius: 999px;
+    box-shadow: 0 16px 38px rgba(var(--reelist-gold-rgb), 0.24);
   }
 
   .navbar-user-action {
     order: 4;
+    flex: 0 0 52px;
   }
 
+  .reelist-brand-logo,
+  .reelist-brand-mark {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+  }
+
+  .reelist-brand-word,
   .navbar-feature-action span:last-child,
   .navbar-primary-action span:last-child {
-    display: none;
+    display: none !important;
   }
 
   .navbar-feature-action .navbar-action-symbol,
   .navbar-primary-action .navbar-action-symbol {
     display: inline-grid !important;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
   }
 
-  .navbar-feature-action,
-  .navbar-user-action {
-    width: 44px;
-    min-height: 44px;
-    height: 44px;
-    padding: 0;
-  }
-
-  .navbar-primary-action {
-    padding: 0;
-  }
-
-  .navbar-primary-action:hover {
-    transform: translateY(-8px);
+  .navbar-feature-action:hover,
+  .navbar-primary-action:hover,
+  .navbar-user-action:hover {
+    transform: translateY(-2px);
   }
 
   .app-flashes {
@@ -207,31 +207,27 @@
 
 @media (max-width: 390px) {
   .navbar-watchlist-inner {
-    grid-template-columns: minmax(82px, 1fr) 40px 48px 40px;
-    gap: 7px;
+    width: calc(100% - 18px);
+    gap: 4px;
+  }
+
+  .reelist-brand,
+  .navbar-feature-action,
+  .navbar-primary-action,
+  .navbar-user-action {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .navbar-user-action {
+    flex-basis: 48px;
   }
 
   .reelist-brand-logo,
   .reelist-brand-mark {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
-  }
-
-  .reelist-brand-word {
-    font-size: 12px;
-  }
-
-  .navbar-feature-action,
-  .navbar-user-action {
-    width: 40px;
-    min-height: 40px;
-    height: 40px;
-    flex-basis: 40px;
-  }
-
-  .navbar-primary-action {
-    width: 48px;
-    min-height: 48px;
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
   }
 }
