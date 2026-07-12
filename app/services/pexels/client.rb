@@ -14,6 +14,10 @@ module Pexels
       response.fetch("photos", []).filter_map { |photo| photo_summary(photo) }
     end
 
+    def video(video_id)
+      video_summary(get("/videos/videos/#{video_id}"))
+    end
+
     private
 
     def get(path, params = {})
@@ -55,6 +59,32 @@ module Pexels
       }
     rescue KeyError
       nil
+    end
+
+    def video_summary(video)
+      video_file = best_video_file(video.fetch("video_files"))
+      user = video["user"] || {}
+
+      return if video_file.blank?
+
+      {
+        id: video.fetch("id"),
+        video_url: video_file.fetch("link"),
+        poster_url: video["image"],
+        source_url: video.fetch("url"),
+        author: user["name"].presence || "Pexels creator",
+        author_url: user["url"].presence || video.fetch("url"),
+        provider: "Pexels"
+      }
+    rescue KeyError
+      nil
+    end
+
+    def best_video_file(files)
+      files
+        .select { |file| file["file_type"] == "video/mp4" && file["link"].present? }
+        .sort_by { |file| [ file["width"].to_i, file["height"].to_i ] }
+        .last
     end
 
     def api_key
