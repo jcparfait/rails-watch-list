@@ -25,16 +25,12 @@ module Tmdb
       return [] if query.blank?
 
       response = get("/search/movie", query: query, include_adult: false, language: "en-US")
-      response.fetch("results", []).first(12).map do |movie|
-        {
-          tmdb_id: movie.fetch("id"),
-          title: movie.fetch("title"),
-          overview: movie["overview"].presence || "No overview available.",
-          poster_url: image_url(movie["poster_path"]),
-          rating: movie["vote_average"].to_f,
-          release_date: movie["release_date"]
-        }
-      end
+      response.fetch("results", []).first(12).filter_map { |movie| movie_summary(movie) }
+    end
+
+    def discover_movies(filters = {})
+      response = get("/discover/movie", filters)
+      response.fetch("results", []).first(30).filter_map { |movie| movie_summary(movie) }
     end
 
     def movie_details(tmdb_id)
@@ -80,6 +76,20 @@ module Tmdb
       JSON.parse(response.body)
     rescue JSON::ParserError, Timeout::Error, SocketError, Errno::ECONNREFUSED
       raise Error, "TMDB is temporarily unavailable. Please try again."
+    end
+
+    def movie_summary(movie)
+      {
+        tmdb_id: movie.fetch("id"),
+        title: movie.fetch("title"),
+        overview: movie["overview"].presence || "No overview available.",
+        poster_url: image_url(movie["poster_path"]),
+        backdrop_url: backdrop_url(movie["backdrop_path"]),
+        rating: movie["vote_average"].to_f,
+        release_date: movie["release_date"]
+      }
+    rescue KeyError
+      nil
     end
 
     def bearer_token
