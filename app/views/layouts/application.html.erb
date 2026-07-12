@@ -45,8 +45,15 @@
       </div>
     </nav>
 
-    <% flash.each do |type, message| %>
-      <div class="app-flash app-flash-<%= type %>" role="status"><%= message %></div>
+    <% if flash.any? %>
+      <div class="app-flashes" aria-live="polite" aria-atomic="true">
+        <% flash.each do |type, message| %>
+          <div class="app-flash app-flash-<%= type %>" role="status" data-controller="flash" data-flash-delay-value="5500">
+            <span><%= message %></span>
+            <button type="button" class="app-flash-close" aria-label="Dismiss notification" data-action="flash#close">×</button>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
     <%= yield %>
