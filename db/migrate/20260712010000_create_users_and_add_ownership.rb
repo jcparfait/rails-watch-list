@@ -1,3 +1,6 @@
+require "bcrypt"
+require "securerandom"
+
 class CreateUsersAndAddOwnership < ActiveRecord::Migration[8.1]
   def up
     create_table :users do |t|
