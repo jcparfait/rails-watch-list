@@ -9,11 +9,9 @@
                        crop: :fill,
                        class: "list-show-cover" %>
     <% else %>
-      <img
-        src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
-        class="list-show-cover"
-        alt="Cinema"
-      >
+      <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
+           class="list-show-cover"
+           alt="Cinema">
     <% end %>
 
     <div class="list-hero-overlay"></div>
@@ -21,9 +19,15 @@
     <div class="list-hero-content">
       <p class="eyebrow">Movie list</p>
       <h1><%= @list.name %></h1>
-      <p class="hero-text">
-        <%= pluralize(@list.bookmarks.count, "movie") %> saved in this list.
-      </p>
+      <p class="hero-text"><%= pluralize(@list.bookmarks.count, "movie") %> saved in this list.</p>
+
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <%= link_to "Edit collection", edit_list_path(@list), class: "btn btn-outline-light btn-sm" %>
+        <%= link_to "Delete collection",
+                    list_path(@list),
+                    data: { turbo_method: :delete, turbo_confirm: "Delete this collection and all its saved films?" },
+                    class: "btn btn-outline-danger btn-sm" %>
+      </div>
     </div>
   </section>
 
@@ -36,10 +40,7 @@
                           label_method: :title,
                           value_method: :id,
                           prompt: "Choose a movie" %>
-
-        <%= f.input :comment,
-                    placeholder: "Why do you want to save this movie?" %>
-
+        <%= f.input :comment, placeholder: "Why do you want to save this movie?" %>
         <%= f.submit "Add movie", class: "btn btn-primary" %>
       <% end %>
     </div>
@@ -53,25 +54,19 @@
             <div class="movie-card-body">
               <div class="d-flex justify-content-between align-items-start gap-3">
                 <h2 class="movie-title"><%= bookmark.movie.title %></h2>
-
-                <span class="movie-rating">
-                  <%= bookmark.movie.rating.round(1) %>
-                </span>
+                <span class="movie-rating"><%= bookmark.movie.rating.round(1) %></span>
               </div>
 
-              <p class="movie-overview">
-                <%= bookmark.movie.overview %>
-              </p>
+              <p class="movie-overview"><%= bookmark.movie.overview %></p>
+              <p class="movie-comment"><strong>Personal note:</strong> <%= bookmark.comment %></p>
 
-              <p class="movie-comment">
-                <strong>Comment:</strong>
-                <%= bookmark.comment %>
-              </p>
-
-              <%= link_to "Delete bookmark",
-                          bookmark_path(bookmark),
-                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                          class: "btn btn-outline-danger btn-sm" %>
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to "Edit note", edit_bookmark_path(bookmark), class: "btn btn-outline-light btn-sm" %>
+                <%= link_to "Remove movie",
+                            bookmark_path(bookmark),
+                            data: { turbo_method: :delete, turbo_confirm: "Remove this movie from the collection?" },
+                            class: "btn btn-outline-danger btn-sm" %>
+              </div>
             </div>
           </div>
         <% end %>
@@ -85,13 +80,12 @@
     <section id="reviews" class="reviews-section mt-5">
       <div class="reviews-header mb-4">
         <div>
-          <p class="eyebrow">Community</p>
+          <p class="eyebrow">Your notes</p>
           <h2>Reviews</h2>
         </div>
 
         <% if @list.reviews.any? %>
           <% average_rating = @list.reviews.average(:rating).to_f.round(1) %>
-
           <div class="average-rating">
             <span class="average-rating-score"><%= average_rating %>/5</span>
             <span class="average-rating-star">★</span>
@@ -104,23 +98,25 @@
           <% @list.reviews.each do |review| %>
             <div class="review-card">
               <div>
-                <strong>
-                  <%= "★" * review.rating %><%= "☆" * (5 - review.rating) %>
-                </strong>
-
+                <strong><%= "★" * review.rating %><%= "☆" * (5 - review.rating) %></strong>
                 <p><%= review.content %></p>
               </div>
 
-              <%= link_to "Delete",
-                          review_path(review),
-                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                          class: "review-delete-link" %>
+              <% if review.user == current_user %>
+                <div class="d-flex gap-3">
+                  <%= link_to "Edit", edit_review_path(review), class: "review-delete-link" %>
+                  <%= link_to "Delete",
+                              review_path(review),
+                              data: { turbo_method: :delete, turbo_confirm: "Delete this review?" },
+                              class: "review-delete-link" %>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
       <% else %>
         <div class="empty-reviews mb-4">
-          <p>No reviews yet. Be the first to comment on this list.</p>
+          <p>No reviews yet.</p>
         </div>
       <% end %>
 
@@ -131,16 +127,9 @@
         </div>
 
         <%= simple_form_for [@list, @review] do |f| %>
-          <%= f.input :content,
-                      label: false,
-                      placeholder: "What do you think about this list?" %>
-
+          <%= f.input :content, label: false, placeholder: "What do you think about this list?" %>
           <div class="review-rating-row">
-            <%= f.input :rating,
-                        label: false,
-                        collection: 0..5,
-                        prompt: "Rating" %>
-
+            <%= f.input :rating, label: false, collection: 0..5, prompt: "Rating" %>
             <%= f.submit "Add review", class: "btn btn-review" %>
           </div>
         <% end %>
