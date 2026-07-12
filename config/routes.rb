@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root to: "lists#index"
 
   resources :lists do
+    get "movies/search", to: "movie_searches#index", as: :movie_search
+    post "movies/import", to: "movie_imports#create", as: :movie_import
     resources :bookmarks, only: [ :new, :create ]
     resources :reviews, only: [ :create ]
   end
