@@ -68,7 +68,8 @@
 .portfolio-hero-panel {
   position: relative;
   z-index: 1;
-  width: min(280px, 30vw);
+  width: 280px;
+  max-width: 30vw;
   min-height: 210px;
   padding: 24px;
   align-self: center;
