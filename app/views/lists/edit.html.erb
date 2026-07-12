@@ -1,0 +1,22 @@
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to collection", @list, class: "back-link" %>
+    <p class="eyebrow">Edit collection</p>
+    <h1>Update <%= @list.name %></h1>
+    <p class="hero-text">Change the collection name or replace its cover image.</p>
+  </section>
+
+  <section class="list-show-container">
+    <div class="list-form-card">
+      <%= simple_form_for @list do |f| %>
+        <%= f.input :name, label: "Collection name" %>
+        <%= f.input :photo, as: :file, label: "Cover image" %>
+
+        <div class="d-flex gap-2 mt-3">
+          <%= f.submit "Save changes", class: "btn btn-primary" %>
+          <%= link_to "Cancel", @list, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
