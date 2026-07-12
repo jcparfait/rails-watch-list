@@ -7,7 +7,6 @@ class ListsController < ApplicationController
 
   def show
     @bookmark = Bookmark.new
-    @review = Review.new
   end
 
   def new
@@ -43,7 +42,9 @@ class ListsController < ApplicationController
   private
 
   def set_list
-    @list = current_user.lists.find(params[:id])
+    @list = current_user.lists
+                        .includes(bookmarks: { movie: { movie_reviews: :user } })
+                        .find(params[:id])
   end
 
   def list_params
