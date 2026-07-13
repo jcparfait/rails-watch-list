@@ -17,6 +17,8 @@ class MovieImportsController < ApplicationController
     end
   rescue Tmdb::Client::Error, ActiveRecord::RecordInvalid, ActionController::ParameterMissing, ActiveRecord::RecordNotFound => e
     list = current_user.lists.find_by(id: params[:list_id])
-    redirect_to(list ? list_movie_search_path(list) : lists_path, alert: e.message, status: :see_other)
+    destination = list ? list_movie_search_path(list) : lists_path
+
+    redirect_to destination, alert: e.message, status: :see_other
   end
 end
