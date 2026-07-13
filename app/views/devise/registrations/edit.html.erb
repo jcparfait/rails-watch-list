@@ -70,7 +70,7 @@
       <p><%= resource.email %></p>
 
       <div class="account-side-actions">
-        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light w-100" %>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light w-100" %>
       </div>
 
       <div class="account-danger-zone">
