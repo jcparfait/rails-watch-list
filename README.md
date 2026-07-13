@@ -4,7 +4,7 @@
 ![Rails](https://img.shields.io/badge/Rails-8.1-CC0000?logo=rubyonrails&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-production-4169E1?logo=postgresql&logoColor=white)
 ![Heroku](https://img.shields.io/badge/Deployed-Heroku-430098?logo=heroku&logoColor=white)
-![CI](https://github.com/jcparfait/rails-watch-list/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/jcparfait/reelist/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jcparfait/reelist/actions/workflows/ci.yml)
 
 **Reelist** is a mobile-first Ruby on Rails app for building a personal cinema library. Users can create film collections, import real movie data from TMDB, choose cinematic cover images from Pexels, rate films, and use a **Movie Night** recommender to find a film based on mood, duration and genre.
 
@@ -22,8 +22,6 @@ Password: password
 ```
 
 ## Screenshots
-
-> Add the screenshot files in `docs/screenshots/` before publishing the repository presentation. The expected filenames are listed below.
 
 | Home / library | Movie Night | Collection detail |
 | --- | --- | --- |
