@@ -11,7 +11,7 @@ class BookmarksController < ApplicationController
     @bookmark = @list.bookmarks.new(bookmark_params)
 
     if @bookmark.save
-      redirect_to @list, notice: "Movie added to your collection."
+      redirect_to list_path(@list), notice: "Movie added to your collection.", status: :see_other
     else
       @review = Review.new
       render "lists/show", status: :unprocessable_entity
@@ -23,7 +23,7 @@ class BookmarksController < ApplicationController
 
   def update
     if @bookmark.update(bookmark_params.except(:movie_id))
-      redirect_to @bookmark.list, notice: "Personal note updated."
+      redirect_to list_path(@bookmark.list), notice: "Personal note updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class BookmarksController < ApplicationController
   def destroy
     list = @bookmark.list
     @bookmark.destroy
-    redirect_to list, notice: "Movie removed from the collection.", status: :see_other
+    redirect_to list_path(list), notice: "Movie removed from the collection.", status: :see_other
   end
 
   private
