@@ -46,12 +46,12 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # Keep cache in memory on Heroku. Reelist only uses cache for the Pexels hero
+  # video metadata, so a dedicated Solid Cache database/table is unnecessary.
+  config.cache_store = :memory_store
 
-  # Replace the default in-process and non-durable queuing backend for Active Job.
+  # Use the default async adapter for this portfolio deployment.
   config.active_job.queue_adapter = :async
-  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
