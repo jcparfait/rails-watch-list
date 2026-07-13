@@ -59,11 +59,11 @@ movies = [
   }
 ]
 
-movies_by_title = movies.index_with do |attributes|
+movies_by_title = movies.each_with_object({}) do |attributes, memo|
   movie = Movie.find_or_initialize_by(tmdb_id: attributes[:tmdb_id])
   movie.assign_attributes(attributes)
   movie.save!
-  movie
+  memo[attributes[:title]] = movie
 end
 
 collections = [
