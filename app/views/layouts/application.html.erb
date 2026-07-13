@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <% default_title = "Reelist — Personal movie collections and movie-night recommendations" %>
-    <% default_description = "Create personal movie collections, import films from TMDB, choose cinematic covers and find what to watch tonight." %>
-    <% app_host = ENV.fetch("APP_HOST", request.host) %>
-    <% app_url = "https://#{app_host}" %>
-    <% og_image_url = "#{app_url}/og-image.svg" %>
-
-    <title><%= content_for(:title) || default_title %></title>
+    <title><%= meta_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<%= default_description %>">
+    <meta name="description" content="<%= meta_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Reelist">
     <meta name="mobile-web-app-capable" content="yes">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Reelist">
-    <meta property="og:title" content="<%= content_for(:title) || default_title %>">
-    <meta property="og:description" content="<%= default_description %>">
-    <meta property="og:url" content="<%= app_url %>">
-    <meta property="og:image" content="<%= og_image_url %>">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:title" content="<%= meta_title %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <% if meta_image_url.present? %>
+      <meta property="og:image" content="<%= meta_image_url %>">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    <% else %>
+      <meta property="og:image" content="<%= "#{request.base_url}/og-image.svg" %>">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    <% end %>
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<%= content_for(:title) || default_title %>">
-    <meta name="twitter:description" content="<%= default_description %>">
-    <meta name="twitter:image" content="<%= og_image_url %>">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <% if meta_image_url.present? %>
+      <meta name="twitter:image" content="<%= meta_image_url %>">
+    <% else %>
+      <meta name="twitter:image" content="<%= "#{request.base_url}/og-image.svg" %>">
+    <% end %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
 
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <% if favicon_asset_path.present? %>
+      <%= favicon_link_tag favicon_asset_path %>
+    <% else %>
+      <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <% end %>
+    <% if apple_touch_icon_asset_path.present? %>
+      <%= favicon_link_tag apple_touch_icon_asset_path, rel: "apple-touch-icon" %>
+    <% else %>
+      <link rel="apple-touch-icon" href="/icon.png">
+    <% end %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
