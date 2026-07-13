@@ -21,7 +21,7 @@ class ListsController < ApplicationController
     @list = current_user.lists.new(list_params)
 
     if @list.save
-      redirect_to @list, notice: "Collection created successfully."
+      redirect_to list_path(@list), notice: "Collection created successfully.", status: :see_other
     else
       load_cover_images
       render :new, status: :unprocessable_entity
@@ -33,7 +33,7 @@ class ListsController < ApplicationController
 
   def update
     if @list.update(list_params)
-      redirect_to @list, notice: "Collection updated successfully."
+      redirect_to list_path(@list), notice: "Collection updated successfully.", status: :see_other
     else
       load_cover_images
       render :edit, status: :unprocessable_entity
