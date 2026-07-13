@@ -7,8 +7,7 @@ module ApplicationHelper
     "social/og-image.jpeg",
     "social/og-image.svg",
     "og-image.png",
-    "cover.png",
-    "logo/logoreelist.png"
+    "cover.png"
   ].freeze
   DEFAULT_FAVICON_CANDIDATES = [
     "favicon.ico",
