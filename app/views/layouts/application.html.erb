@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Reelist — Build your personal cinema" %></title>
+    <% default_title = "Reelist — Personal movie collections and movie-night recommendations" %>
+    <% default_description = "Create personal movie collections, import films from TMDB, choose cinematic covers and find what to watch tonight." %>
+    <% app_host = ENV.fetch("APP_HOST", request.host) %>
+    <% app_url = "https://#{app_host}" %>
+    <% og_image_url = "#{app_url}/og-image.svg" %>
+
+    <title><%= content_for(:title) || default_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Create personal movie collections and keep track of the films that matter to you.">
+    <meta name="description" content="<%= default_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Reelist">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Reelist">
+    <meta property="og:title" content="<%= content_for(:title) || default_title %>">
+    <meta property="og:description" content="<%= default_description %>">
+    <meta property="og:url" content="<%= app_url %>">
+    <meta property="og:image" content="<%= og_image_url %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= content_for(:title) || default_title %>">
+    <meta name="twitter:description" content="<%= default_description %>">
+    <meta name="twitter:image" content="<%= og_image_url %>">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
