@@ -1,0 +1,91 @@
+<% content_for :title, "Account settings — Reelist" %>
+
+<div class="home-page account-page">
+  <section class="hero-section hero-section-with-back account-hero">
+    <%= link_to "← Back to library", root_path, class: "back-link" %>
+    <p class="eyebrow">Account</p>
+    <h1>Manage your profile.</h1>
+    <p class="hero-text">Update your name, email and password for your Reelist account.</p>
+  </section>
+
+  <section class="list-show-container account-grid">
+    <div class="list-form-card account-card account-card-main">
+      <div class="account-card-header">
+        <p class="eyebrow">Profile</p>
+        <h2>Your information</h2>
+      </div>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "account-form" }) do |f| %>
+        <%= f.error_notification %>
+
+        <%= f.input :name,
+                    label: "Name",
+                    placeholder: "Your name" %>
+
+        <%= f.input :email,
+                    label: "Email",
+                    required: true,
+                    autofocus: true %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p class="account-hint">Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+
+        <div class="account-divider"></div>
+
+        <%= f.input :password,
+                    label: "New password",
+                    hint: "Leave blank if you do not want to change it.",
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+
+        <%= f.input :password_confirmation,
+                    label: "Confirm new password",
+                    required: false,
+                    input_html: { autocomplete: "new-password" } %>
+
+        <%= f.input :current_password,
+                    label: "Current password",
+                    hint: "Required to confirm account changes.",
+                    required: true,
+                    input_html: { autocomplete: "current-password" } %>
+
+        <div class="account-actions">
+          <%= f.button :submit, "Save account", class: "btn btn-primary" %>
+          <%= link_to "Cancel", root_path, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+
+    <aside class="account-side-panel">
+      <div class="account-avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <path d="M12 12.25c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Z" />
+          <path d="M4.75 20.25c.64-3.32 3.56-5.75 7.25-5.75s6.61 2.43 7.25 5.75" />
+        </svg>
+      </div>
+
+      <p class="eyebrow">Session</p>
+      <h2><%= resource.name.presence || "Reelist user" %></h2>
+      <p><%= resource.email %></p>
+
+      <div class="account-side-actions">
+        <%= button_to "Sign out",
+                      destroy_user_session_path,
+                      method: :delete,
+                      form: { data: { turbo: false } },
+                      class: "btn btn-outline-light w-100" %>
+      </div>
+
+      <div class="account-danger-zone">
+        <p class="eyebrow">Danger zone</p>
+        <p>Deleting your account will also delete your collections, reviews and saved data.</p>
+        <%= button_to "Delete my account",
+                      registration_path(resource_name),
+                      data: { turbo_confirm: "Delete your Reelist account permanently?" },
+                      method: :delete,
+                      class: "btn btn-outline-danger w-100" %>
+      </div>
+    </aside>
+  </section>
+</div>

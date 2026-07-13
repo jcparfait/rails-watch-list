@@ -1,26 +1,41 @@
 class ReviewsController < ApplicationController
+  before_action :set_review, only: [ :edit, :update, :destroy ]
+
   def create
-    @list = List.find(params[:list_id])
-    @review = Review.new(review_params)
-    @review.list = @list
+    @list = current_user.lists.find(params[:list_id])
+    @review = @list.reviews.new(review_params)
+    @review.user = current_user
 
     if @review.save
-      redirect_to list_path(@list, anchor: "reviews")
+      redirect_to list_path(@list, anchor: "reviews"), notice: "Review published."
     else
       @bookmark = Bookmark.new
       render "lists/show", status: :unprocessable_entity
     end
   end
 
-  def destroy
-    @review = Review.find(params[:id])
-    @list = @review.list
-    @review.destroy
+  def edit
+  end
 
-    redirect_to list_path(@list, anchor: "reviews"), status: :see_other
+  def update
+    if @review.update(review_params)
+      redirect_to list_path(@review.list, anchor: "reviews"), notice: "Review updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    list = @review.list
+    @review.destroy
+    redirect_to list_path(list, anchor: "reviews"), notice: "Review deleted.", status: :see_other
   end
 
   private
+
+  def set_review
+    @review = current_user.reviews.find(params[:id])
+  end
 
   def review_params
     params.require(:review).permit(:content, :rating)

@@ -1,0 +1,41 @@
+{
+  "name": "Reelist",
+  "description": "A Rails portfolio app for building personal movie collections, importing films from TMDB, choosing covers from Pexels and getting movie-night recommendations.",
+  "repository": "https://github.com/jcparfait/rails-watch-list",
+  "keywords": ["rails", "ruby", "tmdb", "movies", "portfolio"],
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate db:seed"
+  },
+  "env": {
+    "APP_HOST": {
+      "description": "Production host without protocol, for example reelist-demo.herokuapp.com.",
+      "required": true
+    },
+    "RAILS_MASTER_KEY": {
+      "description": "Rails master key, if credentials are used.",
+      "required": false
+    },
+    "SECRET_KEY_BASE": {
+      "description": "Rails secret key base.",
+      "generator": "secret"
+    },
+    "TMDB_API_TOKEN": {
+      "description": "TMDB API Read Access Token used for movie search and recommendations.",
+      "required": true
+    },
+    "PEXELS_API_KEY": {
+      "description": "Pexels API key used for collection covers and the home hero video.",
+      "required": true
+    },
+    "DEMO_USER_EMAIL": {
+      "description": "Optional email for the seeded demo account.",
+      "required": false,
+      "value": "demo@reelist.app"
+    },
+    "DEMO_USER_PASSWORD": {
+      "description": "Optional password for the seeded demo account.",
+      "required": false,
+      "value": "password"
+    }
+  }
+}

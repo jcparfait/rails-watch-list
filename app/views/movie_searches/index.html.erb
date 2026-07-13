@@ -1,0 +1,89 @@
+<% content_for :title, "Search movies — Reelist" %>
+
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to #{@list.name}", list_path(@list), class: "back-link" %>
+
+    <div>
+      <p class="eyebrow">TMDB search</p>
+      <h1>Find a movie</h1>
+      <p class="hero-text">Search TMDB and add a film directly to this collection.</p>
+    </div>
+  </section>
+
+  <section class="list-show-container">
+    <%= form_with url: list_movie_search_path(@list),
+                  method: :get,
+                  data: {
+                    controller: "loading",
+                    action: "submit->loading#submit",
+                    loading_text_value: "Searching..."
+                  },
+                  class: "bookmark-form-card" do |form| %>
+      <%= form.label :query, "Movie title" %>
+      <div class="d-flex gap-2 mt-2">
+        <%= form.search_field :query,
+                              value: @query,
+                              placeholder: "Alien, Inception, Parasite…",
+                              class: "form-control",
+                              required: true,
+                              autofocus: true %>
+        <%= form.submit "Search", class: "btn btn-primary", data: { loading_target: "button" } %>
+      </div>
+      <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <span>Searching TMDB…</span>
+      </div>
+    <% end %>
+
+    <% if @query.present? && @movies.empty? && flash.now[:alert].blank? %>
+      <div class="empty-state mt-4">
+        <h2>No results found.</h2>
+        <p>No result matched “<%= @query %>”. Try the original title, a shorter title, or another spelling.</p>
+      </div>
+    <% elsif @movies.any? %>
+      <div class="movies-grid mt-4">
+        <% @movies.each do |movie| %>
+          <article class="movie-card">
+            <% if movie[:poster_url].present? %>
+              <%= image_tag movie[:poster_url], alt: movie[:title] %>
+            <% else %>
+              <div class="empty-state">No poster</div>
+            <% end %>
+
+            <div class="movie-card-body">
+              <div class="d-flex justify-content-between align-items-start gap-3">
+                <h2 class="movie-title"><%= movie[:title] %></h2>
+                <span class="movie-rating"><%= movie[:rating].round(1) %></span>
+              </div>
+
+              <% if movie[:release_date].present? %>
+                <p class="text-secondary"><%= movie[:release_date].to_s.first(4) %></p>
+              <% end %>
+
+              <p class="movie-overview"><%= truncate(movie[:overview], length: 180) %></p>
+
+              <%= form_with url: list_movie_import_path(@list),
+                            method: :post,
+                            data: {
+                              controller: "loading",
+                              action: "submit->loading#submit",
+                              loading_text_value: "Adding..."
+                            } do |form| %>
+                <%= form.hidden_field :tmdb_id, value: movie[:tmdb_id] %>
+                <%= form.text_field :comment,
+                                    placeholder: "Personal note (optional)",
+                                    class: "form-control mb-2" %>
+                <%= form.submit "Add to #{@list.name}", class: "btn btn-primary w-100", data: { loading_target: "button" } %>
+                <div class="loading-indicator mt-3 d-none" data-loading-target="indicator">
+                  <span class="loading-spinner" aria-hidden="true"></span>
+                  <span>Adding this film…</span>
+                </div>
+              <% end %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</div>

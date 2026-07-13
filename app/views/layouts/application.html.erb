@@ -1,39 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Rails Watch List" %></title>
+    <title><%= meta_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= meta_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Rails Watch List">
+    <meta name="application-name" content="Reelist">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Reelist">
+    <meta property="og:title" content="<%= meta_title %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <% if meta_image_url.present? %>
+      <meta property="og:image" content="<%= meta_image_url %>">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    <% else %>
+      <meta property="og:image" content="<%= "#{request.base_url}/og-image.svg" %>">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    <% end %>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <% if meta_image_url.present? %>
+      <meta name="twitter:image" content="<%= meta_image_url %>">
+    <% else %>
+      <meta name="twitter:image" content="<%= "#{request.base_url}/og-image.svg" %>">
+    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <% if favicon_asset_path.present? %>
+      <%= favicon_link_tag favicon_asset_path %>
+    <% else %>
+      <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <% end %>
+    <% if apple_touch_icon_asset_path.present? %>
+      <%= favicon_link_tag apple_touch_icon_asset_path, rel: "apple-touch-icon" %>
+    <% else %>
+      <link rel="apple-touch-icon" href="/icon.png">
+    <% end %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-  <nav class="navbar-watchlist">
-    <div class="container d-flex justify-content-between align-items-center">
-      <%= link_to "Watch List", root_path, class: "navbar-brand" %>
+    <nav class="navbar-watchlist" aria-label="Main navigation">
+      <div class="navbar-watchlist-inner">
+        <%= link_to root_path, class: "reelist-brand", aria: { label: "Reelist home" } do %>
+          <% if asset_available?("logo/logoreelist.png") %>
+            <%= image_tag "logo/logoreelist.png", class: "reelist-brand-logo", alt: "Reelist logo" %>
+          <% else %>
+            <span class="reelist-brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <% end %>
+          <span class="reelist-brand-word">Reelist</span>
+        <% end %>
 
-      <div class="d-flex align-items-center gap-3">
-        <%= link_to "New list", new_list_path, class: "btn btn-primary btn-sm" %>
+        <div class="navbar-watchlist-actions">
+          <% if user_signed_in? %>
+            <%= link_to movie_night_path, class: "navbar-feature-action" do %>
+              <span class="navbar-action-symbol" aria-hidden="true">◐</span>
+              <span>Movie Night</span>
+            <% end %>
+
+            <%= link_to new_list_path, class: "navbar-primary-action" do %>
+              <span class="navbar-action-symbol" aria-hidden="true">+</span>
+              <span>New collection</span>
+            <% end %>
+
+            <%= link_to edit_user_registration_path, class: "navbar-user-action", aria: { label: "Account settings" } do %>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 12.25c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Z" />
+                <path d="M4.75 20.25c.64-3.32 3.56-5.75 7.25-5.75s6.61 2.43 7.25 5.75" />
+              </svg>
+            <% end %>
+          <% else %>
+            <%= link_to "Sign in", new_user_session_path, class: "navbar-link" %>
+            <%= link_to "Create account", new_user_registration_path, class: "navbar-primary-action" %>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <%= yield %>
-</body>
+    <% if flash.any? %>
+      <div class="app-flashes" aria-live="polite" aria-atomic="true">
+        <% flash.each do |type, message| %>
+          <div class="app-flash app-flash-<%= type %>" role="status" data-controller="flash" data-flash-delay-value="5500">
+            <span><%= message %></span>
+            <button type="button" class="app-flash-close" aria-label="Dismiss notification" data-action="flash#close">×</button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </body>
 </html>

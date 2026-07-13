@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, portfolio-improvements ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/reelist_test
+      TMDB_API_TOKEN: test-token
+      PEXELS_API_KEY: test-key
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Prepare database
+        run: bin/rails db:create db:migrate
+
+      - name: Run tests
+        run: bin/rails test
+
+      - name: Run Brakeman
+        run: bundle exec brakeman --no-pager
+
+      - name: Precompile assets
+        env:
+          SECRET_KEY_BASE_DUMMY: 1
+        run: bin/rails assets:precompile

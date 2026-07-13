@@ -1,0 +1,36 @@
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to collection", @list, class: "back-link" %>
+    <p class="eyebrow">Edit collection</p>
+    <h1>Update <%= @list.name %></h1>
+    <p class="hero-text">Change the collection name or choose a new Pexels cover image.</p>
+  </section>
+
+  <section class="list-show-container">
+    <div class="list-form-card cover-search-card">
+      <h2>Find a new cover</h2>
+      <p class="cover-picker-help">Search Pexels, choose an image, then save changes.</p>
+
+      <%= form_with url: edit_list_path(@list), method: :get, data: { turbo: false }, class: "cover-search-form" do |form| %>
+        <%= form.search_field :cover_query,
+                              value: @cover_query,
+                              placeholder: "cinema, movie theater, noir, sci-fi…",
+                              class: "form-control" %>
+        <%= form.submit "Search Pexels", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <div class="list-form-card">
+      <%= simple_form_for @list do |f| %>
+        <%= f.input :name, label: "Collection name" %>
+
+        <%= render "cover_options", list: @list %>
+
+        <div class="d-flex gap-2 mt-3">
+          <%= f.submit "Save changes", class: "btn btn-primary" %>
+          <%= link_to "Cancel", @list, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

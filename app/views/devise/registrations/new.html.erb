@@ -1,0 +1,49 @@
+<% content_for :title, "Create account — Reelist" %>
+
+<div class="home-page account-page">
+  <section class="hero-section hero-section-with-back account-hero">
+    <%= link_to "← Back", new_user_session_path, class: "back-link" %>
+    <p class="eyebrow">Join Reelist</p>
+    <h1>Create your account.</h1>
+    <p class="hero-text">Start building a personal cinema library with collections, notes and recommendations.</p>
+  </section>
+
+  <section class="list-show-container account-grid account-grid-single">
+    <div class="list-form-card account-card account-card-main">
+      <div class="account-card-header">
+        <p class="eyebrow">Sign up</p>
+        <h2>Your account</h2>
+      </div>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "account-form" }) do |f| %>
+        <%= f.error_notification %>
+
+        <%= f.input :name,
+                    label: "Name",
+                    placeholder: "Your name" %>
+
+        <%= f.input :email,
+                    label: "Email",
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" } %>
+
+        <%= f.input :password,
+                    label: "Password",
+                    required: true,
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" } %>
+
+        <%= f.input :password_confirmation,
+                    label: "Confirm password",
+                    required: true,
+                    input_html: { autocomplete: "new-password" } %>
+
+        <div class="account-actions">
+          <%= f.button :submit, "Create account", class: "btn btn-primary" %>
+          <%= link_to "Already have an account?", new_user_session_path, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

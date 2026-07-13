@@ -1,0 +1,23 @@
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to collection", @bookmark.list, class: "back-link" %>
+    <p class="eyebrow">Personal note</p>
+    <h1>Edit your note</h1>
+    <p class="hero-text"><%= @bookmark.movie.title %></p>
+  </section>
+
+  <section class="list-show-container">
+    <div class="list-form-card">
+      <%= simple_form_for @bookmark do |f| %>
+        <%= f.input :comment,
+                    label: "Why did you save this film?",
+                    input_html: { rows: 5 } %>
+
+        <div class="d-flex gap-2 mt-3">
+          <%= f.submit "Save note", class: "btn btn-primary" %>
+          <%= link_to "Cancel", @bookmark.list, class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

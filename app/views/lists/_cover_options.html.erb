@@ -1,0 +1,49 @@
+<div class="cover-picker-panel">
+  <% if list.cover_image_url.present? %>
+    <div class="current-cover-preview">
+      <%= image_tag list.cover_image_url, alt: list_cover_alt(list) %>
+      <div>
+        <p class="eyebrow">Current cover</p>
+        <% if pexels_cover_credit?(list) %>
+          <%= link_to pexels_cover_credit_text(list), pexels_cover_credit_url(list), target: "_blank", rel: "noopener", class: "cover-credit-link" %>
+        <% else %>
+          <p class="cover-picker-help">This collection already has a cover image.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @cover_images.any? %>
+    <div class="cover-picker-heading">
+      <div>
+        <p class="eyebrow">Pexels results</p>
+        <h2>Choose a cover</h2>
+      </div>
+      <p>Only the image URL and photographer credit will be saved.</p>
+    </div>
+
+    <div class="cover-options-grid">
+      <% @cover_images.each do |cover| %>
+        <% input_id = "cover_#{cover[:id]}" %>
+
+        <label class="cover-option" for="<%= input_id %>">
+          <%= radio_button_tag "list[selected_cover_payload]", cover.to_json, false, id: input_id, class: "cover-option-input" %>
+
+          <span class="cover-option-content">
+            <%= image_tag cover[:thumbnail_url] || cover[:image_url], alt: cover[:alt], loading: "lazy" %>
+            <span class="cover-option-overlay">
+              <span>Use this image</span>
+              <small>Photo by <%= cover[:author] %> on Pexels</small>
+            </span>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  <% elsif @cover_query.present? %>
+    <div class="cover-picker-empty">
+      <p>No Pexels image found for “<%= @cover_query %>”. Try “cinema”, “movie theater”, “film”, or a mood like “noir”.</p>
+    </div>
+  <% else %>
+    <p class="cover-picker-help">Search Pexels above, then choose one image before saving the collection.</p>
+  <% end %>
+</div>

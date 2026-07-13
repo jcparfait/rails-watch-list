@@ -1,0 +1,126 @@
+/* =========================
+   VISUAL LIFT / LIGHTER CINEMA THEME
+   Final layer to make the app feel warmer, clearer and less heavy.
+========================= */
+
+:root {
+  --reelist-night: #211018;
+  --reelist-night-2: #2b1620;
+  --reelist-panel: #321c26;
+  --reelist-panel-soft: rgba(255, 246, 229, 0.105);
+  --reelist-burgundy-deep: #5a1728;
+  --reelist-cream-muted: #ead8bd;
+  --reelist-line: rgba(216, 179, 106, 0.26);
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(var(--reelist-burgundy-rgb), 0.28), transparent 32%),
+    radial-gradient(circle at 88% 6%, rgba(var(--reelist-gold-rgb), 0.12), transparent 28%),
+    var(--reelist-night);
+}
+
+.home-page,
+.home-page-portfolio {
+  background:
+    radial-gradient(circle at 12% 4%, rgba(var(--reelist-burgundy-rgb), 0.34), transparent 32%),
+    radial-gradient(circle at 86% 10%, rgba(var(--reelist-gold-rgb), 0.16), transparent 30%),
+    linear-gradient(180deg, #2a111d 0%, #211018 45%, #271420 100%);
+}
+
+.navbar-watchlist {
+  background: rgba(24, 12, 19, 0.9);
+}
+
+.portfolio-hero-cinema {
+  border-bottom-color: rgba(var(--reelist-gold-rgb), 0.28);
+}
+
+.portfolio-hero-video {
+  opacity: 0.78;
+  filter: saturate(1.04) contrast(1.04) brightness(0.98);
+}
+
+.portfolio-hero-video-shade {
+  background:
+    radial-gradient(circle at 18% 34%, rgba(var(--reelist-burgundy-rgb), 0.24), transparent 32%),
+    radial-gradient(circle at 88% 34%, rgba(var(--reelist-gold-rgb), 0.12), transparent 26%),
+    linear-gradient(90deg, rgba(28, 11, 20, 0.54) 0%, rgba(32, 14, 21, 0.38) 48%, rgba(28, 11, 20, 0.22) 100%),
+    linear-gradient(180deg, rgba(20, 11, 18, 0.1), rgba(20, 11, 18, 0.32));
+}
+
+.collections-section {
+  padding-top: 66px;
+}
+
+.collections-heading > p,
+.hero-text,
+.portfolio-hero-panel p,
+.movie-overview,
+.movie-community-review p,
+.movie-community-reviews-empty,
+.empty-state,
+.empty-reviews {
+  color: rgba(255, 246, 229, 0.76);
+}
+
+.list-card,
+.movie-card,
+.review-card,
+.list-form-card,
+.bookmark-form-card,
+.review-form-card,
+.empty-state,
+.empty-reviews,
+.movie-review-panel,
+.movie-community-reviews,
+.portfolio-hero-panel,
+.app-flash {
+  background:
+    linear-gradient(180deg, rgba(255, 246, 229, 0.11), rgba(255, 246, 229, 0.055));
+  border-color: rgba(var(--reelist-gold-rgb), 0.28);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+}
+
+.portfolio-list-card-shade {
+  background:
+    linear-gradient(180deg, rgba(20, 11, 18, 0.06) 0%, rgba(20, 11, 18, 0.22) 42%, rgba(20, 11, 18, 0.78) 100%),
+    radial-gradient(circle at 16% 12%, rgba(var(--reelist-gold-rgb), 0.2), transparent 28%);
+}
+
+.list-card-label,
+.movie-rating,
+.average-rating,
+.movie-meta-row .app-rating,
+.movie-community-reviews summary span:last-child {
+  background: rgba(var(--reelist-gold-rgb), 0.22);
+  border-color: rgba(var(--reelist-gold-rgb), 0.44);
+}
+
+.back-link,
+.hero-secondary-action,
+.btn-outline-light,
+.navbar-feature-action,
+.navbar-user-action {
+  background: rgba(255, 246, 229, 0.075);
+  border-color: rgba(var(--reelist-gold-rgb), 0.34);
+}
+
+.list-form-card .form-control,
+.bookmark-form-card .form-control,
+.bookmark-form-card .form-select,
+.review-form-card .form-control,
+.review-form-card .form-select,
+.movie-review-form .form-select,
+.movie-review-form .form-control,
+.movie-community-reviews .form-select,
+.movie-community-reviews .form-control {
+  background: rgba(255, 246, 229, 0.08);
+  border-color: rgba(var(--reelist-gold-rgb), 0.26);
+}
+
+@media (max-width: 720px) {
+  .navbar-watchlist {
+    background: rgba(24, 12, 19, 0.94);
+  }
+}

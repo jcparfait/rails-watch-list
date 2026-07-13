@@ -1,0 +1,363 @@
+/* =========================
+   REELIST BRAND SYSTEM
+   Palette built around the selected burgundy / champagne ticket logo.
+========================= */
+
+:root {
+  --reelist-night: #140b12;
+  --reelist-night-2: #1f1018;
+  --reelist-panel: #25141d;
+  --reelist-panel-soft: rgba(255, 246, 229, 0.065);
+  --reelist-burgundy: #75182d;
+  --reelist-burgundy-deep: #4b1020;
+  --reelist-burgundy-rgb: 117, 24, 45;
+  --reelist-gold: #d8b36a;
+  --reelist-gold-soft: #f1dca6;
+  --reelist-gold-rgb: 216, 179, 106;
+  --reelist-cream: #fff6e5;
+  --reelist-cream-muted: #d8c7a9;
+  --reelist-line: rgba(216, 179, 106, 0.18);
+  --reelist-danger: #df6f7d;
+}
+
+body {
+  background: var(--reelist-night);
+  color: var(--reelist-cream);
+}
+
+.home-page {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(var(--reelist-burgundy-rgb), 0.38), transparent 34%),
+    radial-gradient(circle at 84% 8%, rgba(var(--reelist-gold-rgb), 0.16), transparent 28%),
+    linear-gradient(180deg, #1a0d15 0%, var(--reelist-night) 48%, #0f0810 100%);
+}
+
+/* =========================
+   NAVBAR / BRAND
+========================= */
+
+.navbar-watchlist {
+  background: rgba(20, 11, 18, 0.86);
+  border-bottom: 1px solid var(--reelist-line);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+}
+
+.navbar-watchlist-inner {
+  width: calc(100% - 48px);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.reelist-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--reelist-cream);
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.reelist-brand:hover {
+  color: var(--reelist-gold-soft);
+}
+
+.reelist-brand-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.3));
+}
+
+.reelist-brand-word {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.reelist-brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--reelist-burgundy), var(--reelist-burgundy-deep));
+  border: 1px solid rgba(var(--reelist-gold-rgb), 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 246, 229, 0.08), 0 16px 34px rgba(0, 0, 0, 0.3);
+}
+
+.reelist-brand-mark span {
+  background: var(--reelist-gold);
+}
+
+.navbar-link,
+.navbar-watchlist .nav-link {
+  color: var(--reelist-cream-muted);
+  text-decoration: none;
+}
+
+.navbar-link:hover,
+.navbar-watchlist .nav-link:hover {
+  color: var(--reelist-gold-soft);
+}
+
+.navbar-user-email {
+  color: rgba(255, 246, 229, 0.46);
+}
+
+.navbar-primary-action {
+  background: linear-gradient(135deg, var(--reelist-gold-soft), var(--reelist-gold));
+  color: #24120d;
+  border: 1px solid rgba(255, 246, 229, 0.28);
+  box-shadow: 0 14px 36px rgba(var(--reelist-gold-rgb), 0.18);
+}
+
+.navbar-primary-action:hover {
+  background: var(--reelist-cream);
+  color: var(--reelist-burgundy-deep);
+}
+
+/* =========================
+   TYPOGRAPHY / PAGE CHROME
+========================= */
+
+.eyebrow {
+  color: var(--reelist-gold);
+}
+
+.hero-section h1,
+.list-hero-content h1,
+.reviews-section h2,
+.review-form-header h3,
+.movie-title,
+.movie-review-panel h3,
+.empty-state h2 {
+  color: var(--reelist-cream);
+}
+
+.hero-text,
+.movie-overview,
+.review-card p,
+.empty-state,
+.empty-reviews,
+.movie-community-review p,
+.movie-community-reviews-empty,
+.loading-indicator {
+  color: var(--reelist-cream-muted);
+}
+
+.back-link {
+  color: var(--reelist-cream-muted);
+  border-color: var(--reelist-line);
+  background: rgba(255, 246, 229, 0.05);
+}
+
+.back-link:hover {
+  color: #24120d;
+  background: var(--reelist-gold);
+}
+
+/* =========================
+   CARDS / COLLECTIONS
+========================= */
+
+.list-card,
+.movie-card,
+.review-card,
+.list-form-card,
+.bookmark-form-card,
+.review-form-card,
+.empty-state,
+.empty-reviews,
+.movie-review-panel,
+.movie-community-reviews,
+.app-flash {
+  background: linear-gradient(180deg, rgba(255, 246, 229, 0.075), rgba(255, 246, 229, 0.038));
+  border-color: var(--reelist-line);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.26);
+}
+
+.list-card::before {
+  background: linear-gradient(180deg, rgba(20, 11, 18, 0.04), rgba(20, 11, 18, 0.64));
+}
+
+.list-card:hover::before {
+  background: linear-gradient(180deg, rgba(var(--reelist-burgundy-rgb), 0.14), rgba(20, 11, 18, 0.7));
+}
+
+.list-card-label,
+.movie-rating,
+.average-rating,
+.movie-meta-row .app-rating,
+.movie-community-reviews summary span:last-child {
+  background: rgba(var(--reelist-gold-rgb), 0.16);
+  border: 1px solid rgba(var(--reelist-gold-rgb), 0.34);
+  color: var(--reelist-gold-soft);
+}
+
+.list-card-content p,
+.list-card-overlay span,
+.movie-meta-row,
+.movie-comment {
+  color: var(--reelist-cream-muted);
+}
+
+.list-card-overlay span {
+  border-color: rgba(var(--reelist-gold-rgb), 0.36);
+  background: rgba(20, 11, 18, 0.52);
+}
+
+.movie-comment {
+  border-left-color: var(--reelist-gold);
+  background: rgba(var(--reelist-burgundy-rgb), 0.12);
+}
+
+.movie-comment strong,
+.review-card strong,
+.average-rating-star,
+.movie-community-review-header {
+  color: var(--reelist-gold);
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.list-form-card .form-control,
+.bookmark-form-card .form-control,
+.bookmark-form-card .form-select,
+.review-form-card .form-control,
+.review-form-card .form-select,
+.movie-review-form .form-select,
+.movie-review-form .form-control,
+.movie-community-reviews .form-select,
+.movie-community-reviews .form-control {
+  background: rgba(12, 7, 12, 0.62);
+  border: 1px solid rgba(var(--reelist-gold-rgb), 0.18);
+  color: var(--reelist-cream);
+}
+
+.list-form-card .form-control:focus,
+.bookmark-form-card .form-control:focus,
+.bookmark-form-card .form-select:focus,
+.review-form-card .form-control:focus,
+.review-form-card .form-select:focus,
+.movie-review-form .form-select:focus,
+.movie-review-form .form-control:focus {
+  border-color: var(--reelist-gold);
+  box-shadow: 0 0 0 0.25rem rgba(var(--reelist-gold-rgb), 0.16);
+  background: rgba(12, 7, 12, 0.84);
+  color: var(--reelist-cream);
+}
+
+.form-control::placeholder,
+.movie-review-form .form-control::placeholder {
+  color: rgba(255, 246, 229, 0.4);
+}
+
+.bookmark-form-card {
+  border-left-color: var(--reelist-gold);
+}
+
+.review-form-card {
+  background:
+    linear-gradient(135deg, rgba(var(--reelist-burgundy-rgb), 0.22), rgba(var(--reelist-gold-rgb), 0.08)),
+    rgba(255, 246, 229, 0.045);
+  border-color: rgba(var(--reelist-gold-rgb), 0.24);
+}
+
+/* =========================
+   BUTTONS / ACTIONS
+========================= */
+
+.btn-primary,
+.list-form-card .btn-primary,
+.bookmark-form-card .btn-primary,
+.btn-review {
+  background: linear-gradient(135deg, var(--reelist-gold-soft), var(--reelist-gold));
+  border-color: var(--reelist-gold);
+  color: #24120d;
+  font-weight: 900;
+  box-shadow: 0 14px 34px rgba(var(--reelist-gold-rgb), 0.16);
+}
+
+.btn-primary:hover,
+.list-form-card .btn-primary:hover,
+.bookmark-form-card .btn-primary:hover,
+.btn-review:hover {
+  background: var(--reelist-cream);
+  border-color: var(--reelist-cream);
+  color: var(--reelist-burgundy-deep);
+}
+
+.btn-outline-light {
+  border-color: rgba(var(--reelist-gold-rgb), 0.35);
+  color: var(--reelist-cream);
+}
+
+.btn-outline-light:hover {
+  background: var(--reelist-cream);
+  border-color: var(--reelist-cream);
+  color: var(--reelist-burgundy-deep);
+}
+
+.btn-outline-danger {
+  border-color: rgba(223, 111, 125, 0.54);
+  color: var(--reelist-danger);
+}
+
+.btn-outline-danger:hover {
+  background: var(--reelist-danger);
+  border-color: var(--reelist-danger);
+  color: #220b11;
+}
+
+.review-delete-link {
+  color: rgba(var(--reelist-gold-rgb), 0.82);
+}
+
+.review-delete-link:hover {
+  color: var(--reelist-gold-soft);
+}
+
+/* =========================
+   FLASH / LOADING
+========================= */
+
+.app-flash-notice {
+  border-color: rgba(var(--reelist-gold-rgb), 0.42);
+}
+
+.app-flash-alert,
+.app-flash-error {
+  border-color: rgba(223, 111, 125, 0.56);
+}
+
+.loading-spinner {
+  border-color: rgba(255, 246, 229, 0.22);
+  border-top-color: var(--reelist-gold);
+}
+
+/* =========================
+   HERO IMAGES
+========================= */
+
+.list-hero-overlay {
+  background:
+    radial-gradient(circle at 30% 18%, rgba(var(--reelist-gold-rgb), 0.18), transparent 32%),
+    linear-gradient(180deg, rgba(20, 11, 18, 0.14), rgba(20, 11, 18, 0.92));
+}
+
+@media (max-width: 640px) {
+  .reelist-brand-logo,
+  .reelist-brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .reelist-brand-word {
+    font-size: 16px;
+  }
+
+  .navbar-watchlist-inner {
+    width: calc(100% - 32px);
+  }
+}

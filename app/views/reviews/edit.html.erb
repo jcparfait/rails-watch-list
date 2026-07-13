@@ -1,0 +1,22 @@
+<div class="home-page">
+  <section class="hero-section hero-section-with-back">
+    <%= link_to "← Back to collection", list_path(@review.list, anchor: "reviews"), class: "back-link" %>
+    <p class="eyebrow">Edit review</p>
+    <h1>Update your review</h1>
+    <p class="hero-text"><%= @review.list.name %></p>
+  </section>
+
+  <section class="list-show-container">
+    <div class="list-form-card">
+      <%= simple_form_for @review do |f| %>
+        <%= f.input :content, input_html: { rows: 5 } %>
+        <%= f.input :rating, collection: 0..5, prompt: "Choose a rating" %>
+
+        <div class="d-flex gap-2 mt-3">
+          <%= f.submit "Save review", class: "btn btn-primary" %>
+          <%= link_to "Cancel", list_path(@review.list, anchor: "reviews"), class: "btn btn-outline-light" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

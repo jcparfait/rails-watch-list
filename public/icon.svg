@@ -1,3 +1,18 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Reelist favicon</title>
+  <rect width="512" height="512" rx="112" fill="#211018"/>
+  <rect x="76" y="160" width="360" height="192" rx="28" fill="#6f1d33"/>
+  <rect x="94" y="178" width="324" height="156" rx="20" fill="#8b2a3c"/>
+  <circle cx="256" cy="256" r="72" fill="#f3d78f"/>
+  <circle cx="256" cy="256" r="28" fill="#6f1d33"/>
+  <circle cx="256" cy="202" r="15" fill="#6f1d33"/>
+  <circle cx="310" cy="256" r="15" fill="#6f1d33"/>
+  <circle cx="256" cy="310" r="15" fill="#6f1d33"/>
+  <circle cx="202" cy="256" r="15" fill="#6f1d33"/>
+  <rect x="52" y="184" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
+  <rect x="52" y="247" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
+  <rect x="52" y="310" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
+  <rect x="430" y="184" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
+  <rect x="430" y="247" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
+  <rect x="430" y="310" width="30" height="18" rx="9" fill="#f3d78f" opacity="0.72"/>
 </svg>

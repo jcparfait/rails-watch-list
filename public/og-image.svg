@@ -1,0 +1,47 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Reelist preview image</title>
+  <desc id="desc">Reelist, a personal cinema library for movie collections and movie-night recommendations.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a1728"/>
+      <stop offset="45%" stop-color="#211018"/>
+      <stop offset="100%" stop-color="#f3d78f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="38%" r="48%">
+      <stop offset="0%" stop-color="#f3d78f" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#f3d78f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="955" cy="96" r="180" fill="#f3d78f" opacity="0.12"/>
+  <circle cx="116" cy="540" r="220" fill="#8b2a3c" opacity="0.42"/>
+
+  <g transform="translate(92 112)">
+    <rect width="118" height="68" rx="16" fill="#6f1d33"/>
+    <rect x="10" y="10" width="98" height="48" rx="11" fill="#8b2a3c"/>
+    <circle cx="59" cy="34" r="22" fill="#f3d78f"/>
+    <circle cx="59" cy="34" r="8" fill="#6f1d33"/>
+    <circle cx="59" cy="17" r="4" fill="#6f1d33"/>
+    <circle cx="76" cy="34" r="4" fill="#6f1d33"/>
+    <circle cx="59" cy="51" r="4" fill="#6f1d33"/>
+    <circle cx="42" cy="34" r="4" fill="#6f1d33"/>
+  </g>
+
+  <text x="92" y="250" fill="#fff6e5" font-family="Inter, Arial, sans-serif" font-size="96" font-weight="900" letter-spacing="-5">Reelist</text>
+  <text x="92" y="328" fill="#f3d78f" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800">Build your personal cinema.</text>
+  <text x="92" y="392" fill="#fff6e5" opacity="0.88" font-family="Inter, Arial, sans-serif" font-size="28">Create collections, import films from TMDB,</text>
+  <text x="92" y="434" fill="#fff6e5" opacity="0.88" font-family="Inter, Arial, sans-serif" font-size="28">rate what you watch and choose tonight’s film.</text>
+
+  <g transform="translate(740 200)">
+    <rect width="330" height="230" rx="36" fill="#fff6e5" opacity="0.13" stroke="#f3d78f" stroke-opacity="0.35"/>
+    <circle cx="118" cy="115" r="72" fill="#f3d78f" opacity="0.9"/>
+    <circle cx="118" cy="115" r="29" fill="#5a1728"/>
+    <circle cx="118" cy="62" r="13" fill="#5a1728"/>
+    <circle cx="171" cy="115" r="13" fill="#5a1728"/>
+    <circle cx="118" cy="168" r="13" fill="#5a1728"/>
+    <circle cx="65" cy="115" r="13" fill="#5a1728"/>
+    <rect x="210" y="58" width="56" height="116" rx="16" fill="#fff6e5" opacity="0.8"/>
+    <rect x="226" y="78" width="24" height="76" rx="12" fill="#5a1728" opacity="0.76"/>
+  </g>
+</svg>
