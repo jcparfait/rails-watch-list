@@ -37,12 +37,12 @@ class MovieNightsController < ApplicationController
     bookmark.comment = params[:comment].presence || "Recommended by Movie Night."
 
     if bookmark.save
-      redirect_to list, notice: "#{movie.title} was saved to #{list.name}."
+      redirect_to list_path(list), notice: "#{movie.title} was saved to #{list.name}.", status: :see_other
     else
-      redirect_to movie_night_path, alert: bookmark.errors.full_messages.to_sentence
+      redirect_to movie_night_path, alert: bookmark.errors.full_messages.to_sentence, status: :see_other
     end
-  rescue Tmdb::Client::Error, ActiveRecord::RecordInvalid, ActionController::ParameterMissing => e
-    redirect_to movie_night_path, alert: e.message
+  rescue Tmdb::Client::Error, ActiveRecord::RecordInvalid, ActionController::ParameterMissing, ActiveRecord::RecordNotFound => e
+    redirect_to movie_night_path, alert: e.message, status: :see_other
   end
 
   private
