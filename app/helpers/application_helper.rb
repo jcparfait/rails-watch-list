@@ -1,4 +1,29 @@
 module ApplicationHelper
+  DEFAULT_META_TITLE = "Reelist — Build your personal cinema library".freeze
+  DEFAULT_META_DESCRIPTION = "Create movie collections, import films from TMDB, choose cinematic covers and find the right film for tonight.".freeze
+  DEFAULT_OG_IMAGE_CANDIDATES = [
+    "social/og-image.png",
+    "social/og-image.jpg",
+    "social/og-image.jpeg",
+    "social/og-image.svg",
+    "og-image.png",
+    "cover.png",
+    "logo/logoreelist.png"
+  ].freeze
+  DEFAULT_FAVICON_CANDIDATES = [
+    "favicon.ico",
+    "favicon.png",
+    "favicon/favicon.ico",
+    "favicon/favicon-32x32.png",
+    "logo/logoreelist.png"
+  ].freeze
+  DEFAULT_APPLE_TOUCH_ICON_CANDIDATES = [
+    "apple-touch-icon.png",
+    "favicon/apple-touch-icon.png",
+    "favicon/favicon-180x180.png",
+    "logo/logoreelist.png"
+  ].freeze
+
   def asset_available?(logical_path)
     if Rails.application.config.assets.compile
       Rails.application.assets&.find_asset(logical_path).present?
@@ -7,6 +32,33 @@ module ApplicationHelper
     end
   rescue StandardError
     false
+  end
+
+  def first_available_asset(*logical_paths)
+    logical_paths.flatten.find { |logical_path| asset_available?(logical_path) }
+  end
+
+  def meta_title
+    content_for(:title).presence || DEFAULT_META_TITLE
+  end
+
+  def meta_description
+    content_for(:description).presence || DEFAULT_META_DESCRIPTION
+  end
+
+  def meta_image_url
+    logical_path = first_available_asset(DEFAULT_OG_IMAGE_CANDIDATES)
+    return unless logical_path.present?
+
+    asset_url(logical_path)
+  end
+
+  def favicon_asset_path
+    first_available_asset(DEFAULT_FAVICON_CANDIDATES)
+  end
+
+  def apple_touch_icon_asset_path
+    first_available_asset(DEFAULT_APPLE_TOUCH_ICON_CANDIDATES)
   end
 
   def list_cover_image_source(list)
